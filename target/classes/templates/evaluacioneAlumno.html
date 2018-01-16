@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1" />
+<title>Cursos</title>
+
+<meta charset="UTF-8" />
+<meta
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+	name="viewport" />
+
+
+<!-- Google Fonts 
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext"
+	rel="stylesheet" type="text/css"/>-->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet" type="text/css" />
+
+<!-- Bootstrap Core Css -->
+<link th:href="@{/plugins/bootstrap/css/bootstrap.css}" rel="stylesheet" />
+
+<!-- Waves Effect Css -->
+<link th:href="@{/plugins/node-waves/waves.css}" rel="stylesheet" />
+
+<!-- Animation Css -->
+<link th:href="@{/plugins/animate-css/animate.css}" rel="stylesheet" />
+
+
+<!-- Custom Css -->
+<link th:href="@{/css/style.css}" rel="stylesheet" />
+
+<!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
+<link th:href="@{/css/themes/all-themes.css}" rel="stylesheet" />
+</head>
+<body class="theme-red">
+
+	<section th:include="fragment/menualumno"></section>
+
+
+
+	<section class="content">
+		<div class="container-fluid">
+			<!-- Counter Examples -->
+			<div class="block-header">
+				<h2>
+					Evaluaciones  
+				</h2>
+			</div>
+			<div class="row">
+				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12"
+					th:each="eva : ${listExamen}">
+					<div class="info-box bg-pink hover-zoom-effect">
+						<div class="icon">
+							<i class="material-icons">question_answer</i>
+						</div>
+						<div class="content">
+							<div class="text" th:text="${eva.eNombre}"></div>
+							<div class="number" th:text="${eva.ePorcentaje}"></div>
+						</div>
+					</div>
+					<div class="demo-button-nesting">
+						<div class="btn-group" role="group">
+							<div class="btn-group" role="group">
+								<button type="button"
+									class="btn bg-pink waves-effect dropdown-toggle"
+									data-toggle="dropdown" aria-haspopup="true"
+									aria-expanded="false">
+									<i class="material-icons">info</i> <span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu">
+									<li><a th:href="@{/EvaluacionAlumno/mostrarExamen(idEvento=${idEvento},idEvaluacion=${eva.idevaluacion})}"><span>Realizar Evaluacion</span>
+									</a></li>
+									<li><a th:href="@{/preguntasErradas/evaluacion(idEvento=${idEvento},idEvaluacion=${eva.idevaluacion})}">
+									<span>Preguntas Erradas</span>
+									</a></li>
+									<li><a th:href="@{/ExamenErrado/ExamenErrado1(idEvento=${idEvento},idEvaluacion=${eva.idevaluacion})}"><span>Corregir Examen</span> </a></li>
+									<li th:if="${status}==1"><a th:href="@{/alumno/certificado?idEvento=__${idEvento}__}" target="_blank"><span>Generar certificado</span></a></li>
+									
+								</ul>
+							</div>
+						</div>
+
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Jquery Core Js -->
+	<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+
+	<!-- Bootstrap Core Js -->
+	<script th:src="@{/plugins/bootstrap/js/bootstrap.js}"></script>
+
+	<!-- Select Plugin Js -->
+	<script th:src="@{/plugins/bootstrap-select/js/bootstrap-select.js}"></script>
+
+	<!-- Slimscroll Plugin Js -->
+	<script th:src="@{/plugins/jquery-slimscroll/jquery.slimscroll.js}"></script>
+
+	<!-- Bootstrap Notify Plugin Js -->
+	<script th:src="@{/plugins/bootstrap-notify/bootstrap-notify.js}"></script>
+
+	<!-- Waves Effect Plugin Js -->
+	<script th:src="@{/plugins/node-waves/waves.js}"></script>
+
+
+	<!-- Custom Js -->
+	<script th:src="@{/js/admin.js}"></script>
+	<script th:src="@{/js/pages/cards/colored.js}"></script>
+
+	<!-- Demo Js -->
+	<script th:src="@{/js/demo.js}"></script>
+</body>
+</html>

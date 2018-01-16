@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.0.final using JasperReports Library version 6.5.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="certificadoR" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="612" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="69a1a53d-2924-45f6-9232-c0b460817248">
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="img" class="java.lang.Object"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="alumno" class="java.lang.String"/>
+	<field name="curso" class="java.lang.String"/>
+	<field name="fecha" class="java.lang.String"/>
+	<background>
+		<band height="612" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<image>
+				<reportElement x="0" y="0" width="792" height="612" uuid="9a76da8a-59a3-4829-bac7-d3e0385669a4"/>
+				<imageExpression><![CDATA[$P{img}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="0" y="0" width="792" height="612" uuid="9c851b63-5c6c-4838-962c-372f916fcf07"/>
+				<imageExpression><![CDATA["src/main/resources/reports/Certificate.png"]]></imageExpression>
+			</image>
+		</band>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<detail>
+		<band height="230" splitType="Stretch">
+			<textField>
+				<reportElement x="60" y="140" width="648" height="60" forecolor="#3F649A" uuid="6cc950e9-875f-4b74-833a-40fd0b2f945b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="262952d7-3d6a-4624-833a-2845ea8856c8"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Great Vibes" size="45"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alumno}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<textField>
+				<reportElement x="100" y="-48" width="220" height="38" forecolor="#3F649A" uuid="ea5de7cf-6d9f-446e-a7d7-6bf9dba654fd"/>
+				<textElement textAlignment="Center">
+					<font fontName="Bebas Neue Regular" size="15"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="196" y="-165" width="400" height="30" forecolor="#3F649A" uuid="3683cdf2-0779-46de-ab47-93f735483f5a"/>
+				<textElement textAlignment="Center">
+					<font fontName="Dosis" size="18" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{curso}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

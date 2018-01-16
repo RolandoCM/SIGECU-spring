@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Evaluacion | Alumno</title>
+
+<meta charset="UTF-8" />
+<meta
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+	name="viewport" />
+<title>ExamenErrado</title>
+<!-- Favicon-->
+
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon" />
+<link rel="stylesheet"
+	th:href="@{/fonts/material-design-icons-master/material-icons.css}" />
+<!-- Bootstrap Core Css -->
+<link th:href="@{/plugins/bootstrap/css/bootstrap.css}" rel="stylesheet" />
+<!-- Waves Effect Css -->
+<link th:href="@{/plugins/node-waves/waves.css}" rel="stylesheet" />
+<!-- Animation Css -->
+<link th:href="@{/plugins/animate-css/animate.css}" rel="stylesheet" />
+<!-- Sweet Alert Css -->
+<link th:href="@{/plugins/sweetalert/sweetalert.css}" rel="stylesheet" />
+<!-- Custom Css -->
+<link th:href="@{/css/style.css}" rel="stylesheet" />
+<!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
+<link th:href="@{/css/themes/all-themes.css}" rel="stylesheet" />
+<script th:src="@{/js/cronometro.js}"></script>
+<style type='text/css'>
+input.invisible {
+	visibility: hidden;
+}
+</style>
+
+
+
+
+
+
+</head>
+
+<body class="theme-red">
+	<div class="col-xs-6 ol-sm-6 col-md-6 col-lg-6"
+		style="margin-top: 10%; margin-left: 25%">
+		<h2>Warning</h2>
+		<div class="panel-group" id="accordion_3" role="tablist"
+			aria-multiselectable="true">
+			<div class="panel panel-warning">
+				<div class="panel-heading" role="tab" id="headingOne_3">
+					<h4 class="panel-title">
+						<a role="button" data-toggle="collapse" data-parent="#accordion_3"
+							href="#collapseOne_3" aria-expanded="true"
+							aria-controls="collapseOne_3"> Examen No Activo </a>
+					</h4>
+				</div>
+				<div id="collapseOne_3" class="panel-collapse collapse in"
+					role="tabpanel" aria-labelledby="headingOne_3">
+					<div class="panel-body">
+						Por el momento no hay retroalimentación para este examen. Es posible que su 
+						instructor aún no lo asigna. 
+						Usted no a realizado este examen para poder tener retroalimentación. 
+						<br/><br/>
+						En el caso de haber realizado el examen y sigue apareciendo este mensaje, 
+						favor de comunicarlo a su instructor. <br /> <br />
+						<div class="row clearfix">
+							<div class="col-md-3">
+								<a href="#"
+									th:href="@{/eventosAlumno/listarExamenAlumno?idEvento=__${idEvento}__}">
+									<button type="button"
+										class="btn btn-primary btn-lg m-l-15 waves-effect">
+										<span class="glyphicon glyphicon-pencil" aria-hidden="true">
+											Regresar</span>
+									</button>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- #END# Basic Example | Vertical Layout -->
+
+
+	<!-- Jquery Core Js -->
+
+
+	<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+
+	<!-- Bootstrap Core Js -->
+	<script th:src="@{/plugins/bootstrap/js/bootstrap.js}"></script>
+
+	<!-- Select Plugin Js -->
+	<script th:src="@{/plugins/bootstrap-select/js/bootstrap-select.js}"></script>
+
+	<!-- Slimscroll Plugin Js -->
+	<script th:src="@{/plugins/jquery-slimscroll/jquery.slimscroll.js}"></script>
+
+	<!-- Jquery Validation Plugin Css -->
+	<script th:src="@{/plugins/jquery-validation/jquery.validate.js}"></script>
+
+	<!-- JQuery Steps Plugin Js -->
+	<script th:src="@{/plugins/jquery-steps/jquery.steps.js}"></script>
+
+	<!-- Sweet Alert Plugin Js -->
+	<script th:src="@{/plugins/sweetalert/sweetalert.min.js}"></script>
+
+	<!-- Waves Effect Plugin Js -->
+	<script th:src="@{/plugins/node-waves/waves.js}"></script>
+
+	<!-- Custom Js -->
+	<script th:src="@{/js/admin.js}"></script>
+	<script th:src="@{/js/pages/forms/form-wizard.js}"></script>
+
+
+
+	<!-- Demo Js -->
+	<script th:src="@{/js/demo.js}"></script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<title>Calificacion General</title>
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet" type="text/css" />
+<link href="#"
+	th:href="@{/fonts/material-design-icons-master/material-icons.css}" />
+<link href="#" th:href="@{/plugins/bootstrap/css/bootstrap.css}"
+	rel="styleseet" />
+<link href="#" th:href="@{/plugins/node-waves/waves.css}"
+	rel="stylesheet" />
+<link href="#" th:href="@{/plugins/bootstrap/css/bootstrap.css}"
+	rel="stylesheet" />
+<link href="#" th:href="@{/css/style.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/themes/all-themes.css}" rel="stylesheet" />
+<link href="#" th:href="@{/plugins/animate-css/animate.css}"
+	rel="stylesheet" />
+<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+<!-- Bootstrap Core Js -->
+<script th:src="@{/plugins/bootstrap/js/bootstrap.js}"></script>
+
+<!-- Select Plugin Js -->
+<script th:src="@{/plugins/bootstrap-select/js/bootstrap-select.js}"></script>
+
+<!-- Slimscroll Plugin Js -->
+<script th:src="@{/plugins/jquery-slimscroll/jquery.slimscroll.js}"></script>
+
+<!-- Waves Effect Plugin Js -->
+<script th:src="@{/plugins/node-waves/waves.js}"></script>
+
+<!-- Custom Js -->
+<script th:src="@{/js/admin.js}"></script>
+
+<!-- Demo Js -->
+<script th:src="@{/js/demo.js}"></script>
+<script th:src="@{/js/pages/ui/modals.js}"></script>
+</head>
+
+
+<body class="theme-red">
+	<section th:include="fragment/menualumno"></section>
+	<section class="content">
+		<div class="container-fluid">
+			<div class="row clearfix">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="card">
+						<div class="header">
+							<h2>Calificacion Evaluaciones</h2>
+						</div>
+
+						<div class="body">
+							<div>
+							<label for="uname">Calificacion: </label>
+							<label for="uname" th:text="${resumen[0]}"></label>
+							<br/>
+							<label for="uname"> Preguntas acertadas: </label>
+							<label for="uname" th:text="${resumen[1]}"></label>
+							<br/>	
+							<label for="uname"> Preguntas erradas: </label>
+							<label for="uname" th:text="${resumen[2]}">0 </label>
+							
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1"/>
+<title>SIGECU | CERTIFICADO</title>
+</head>
+<body>
+	<h1> Certificado </h1>
+	<form th:action="@{/alumno/certificado}" th:object="${form}" th:method="post">
+ 		Id Evento:<br/>
+ 		<input type="text" name="idAlumno" value="${idAlumno}" placeholder="Alumno" />
+ 		<br/>
+ 		ID Evento:<br/>
+ 		<input type="text" name="idEvento" value="${idEvento}" placeholder="Evento" />
+ 		<br/><br/>
+ 		<input type="submit" value="Generar"/>
+ 	</form>
+	<a th:href="${'/alumno/certificado'}" target="_blank">Certificado</a>
+	
+	<!--table>
+		<tr>
+			<th>AHE</th>
+		</tr>
+		<tr th:each="ahe : ${AHEB}">
+			<td th:text="${ahe.alumno.getA_nombre()}"></td>
+		</tr>
+	</table-->
+	
+</body>
+</html>

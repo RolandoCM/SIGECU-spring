@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<title>Lisa de Examenes</title>
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet" type="text/css" />
+<link href="#"
+	th:href="@{/fonts/material-design-icons-master/material-icons.css}" />
+<link href="#" th:href="@{/plugins/bootstrap/css/bootstrap.css}"
+	rel="styleseet" />
+<link href="#" th:href="@{/plugins/node-waves/waves.css}"
+	rel="stylesheet" />
+<link href="#" th:href="@{/plugins/bootstrap/css/bootstrap.css}"
+	rel="stylesheet" />
+<link href="#" th:href="@{/css/style.css}" rel="stylesheet" />
+<link href="#" th:href="@{/css/themes/all-themes.css}" rel="stylesheet" />
+<link href="#" th:href="@{/plugins/animate-css/animate.css}"
+	rel="stylesheet" />
+<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+<!-- Bootstrap Core Js -->
+<script th:src="@{/plugins/bootstrap/js/bootstrap.js}"></script>
+
+<!-- Select Plugin Js -->
+<script th:src="@{/plugins/bootstrap-select/js/bootstrap-select.js}"></script>
+
+<!-- Slimscroll Plugin Js -->
+<script th:src="@{/plugins/jquery-slimscroll/jquery.slimscroll.js}"></script>
+
+<!-- Waves Effect Plugin Js -->
+<script th:src="@{/plugins/node-waves/waves.js}"></script>
+
+<!-- Custom Js -->
+<script th:src="@{/js/admin.js}"></script>
+
+<!-- Demo Js -->
+<script th:src="@{/js/demo.js}"></script>
+<script th:src="@{/js/pages/ui/modals.js}"></script>
+
+</head>
+
+
+<body class="theme-red">
+	<section th:include="fragment/menuadmin"></section>
+	<section class="content">
+		<div class="container-fluid">
+			<div class="row clearfix">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="card">
+						<div class="header"></div>
+						<div class="body">
+							<!-- preguntas de examen  -->
+							<div class="card">
+								<div class="header">
+									<div class="row clearfix">
+										<form action="#" th:action="@{/adminExamen/addPregunta}"
+											th:object="${preModel}" method="POST">
+											<input type="hidden" name="idEvaluacion"
+												th:value="${idEvaluacion}" /> <input type="hidden"
+												th:field="*{idPregunta}" required="" aria-required="true" />
+											<div class="col-md-6">
+												<label for="title">Pregunta</label>
+												<div class="form-group">
+
+													<div class="form-line">
+														<input type="text" class="form-control"
+															placeholder="Enunciado de la Pregunta"
+															th:field="*{pPregunta}" th:value="${pPregunta}"
+															required="" aria-required="true" />
+													</div>
+												</div>
+											</div>
+
+											<div class="col-md-6">
+												<label for="title">Descripcion</label>
+												<div class="form-group">
+													<div class="form-line">
+														<input type="text" id="descripcion" class="form-control"
+															placeholder="Descripcion de la pregunta"
+															th:field="*{pDescripcion}" th:value="${pDescripcion}" />
+													</div>
+												</div>
+											</div>
+											<div class="col-md-3">
+												<label for="title">Puntaje</label>
+												<div class="input-group form-group">
+													<span class="input-group-addon"> <i
+														class="material-icons">plus_one</i>
+													</span>
+													<div class="form-line ">
+														<input class="form-control" name="puntaje"
+															th:field="*{puntaje}" th:value="${puntaje}" required=""
+															aria-required="true" type="number" />
+													</div>
+												</div>
+											</div>
+											<div class="rowclearfix">
+												<div class="col-md-12">
+													<button type="submit"
+														class="btn btn-primary btn-lg m-l-15 waves-effect">Agregar</button>
+												</div>
+											</div>
+										</form>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row clearfix">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<div class="card">
+					<div class="header">
+						<h2>EXAMEN</h2>
+
+					</div>
+
+					<div class="body">
+						<div class="table-reponsive">
+							<table
+								class="table table-bordered table-spriped table-hover dataTable js-exportable">
+								<thead>
+
+								</thead>
+								<tbody>
+									<tr th:each="pregunta : ${listaPreguntas}">
+										<td>
+											<div class="card">
+												<div class="header">
+													<div class=" row clearfix">
+														<div class="col-md-3">
+															<i class="material-icons">help_outline</i> <label>
+																Pregunta</label>
+															<p th:text="${pregunta.pPregunta}"></p>
+														</div>
+														<div class="col-md-3">
+															<label>Puntaje asignado</label>
+															<p th:text="${pregunta.puntaje}"></p>
+														</div>
+														<div class="col-md-3">
+															<label>Descripción</label>
+															<p th:text="${pregunta.pDescripcion}"></p>
+														</div>
+														<div>
+															<button name="respuestas" type="button"
+																class="btn bg-deep-orange waves-effect m-r-20"
+																value="Agregar Respuesta" id="respuestas"
+																data-color="deep-orange" data-toggle="modal"
+																th:attr="data-target='#ModalRespuesta'+${pregunta.idPregunta}">
+																<i class="material-icons">add</i>Agregar Respuesta
+															</button>
+
+															<button name="eliminaPregunta1" type="button"
+																class="btn bg-deep-orange waves-effect m-r-20"
+																value="Eliminar" id="btnEliminar"
+																data-color="deep-orange" data-toggle="modal"
+																th:attr="data-target='#ModalCancelarP'+${pregunta.idPregunta}">
+																<i class="material-icons">clear</i>
+															</button>
+
+
+														</div>
+													</div>
+												</div>
+												<div class="body">
+													<div class="table-reponsive">
+														<table style="border: hidden">
+															<thead style="border: hidden">
+																<tr>
+
+																	<th style="border: hidden"><label>Respuestas</label></th>
+																	<th style="border: hidden"></th>
+																	<th style="border: hidden"></th>
+																	<th style="border: hidden"></th>
+																</tr>
+															</thead>
+															<tbody style="border: hidden">
+																<tr th:each="resp : ${listaRespuestas}"
+																	th:if="${pregunta.idPregunta==resp.pregunta.getIdPregunta()}">
+																	<td style="border: hidden;">
+																		<div>
+																			<button name="respuestas" type="button"
+																				class="btn bg-deep-orange waves-effect m-r-20"
+																				value="Eliminar" id="btnEliminar"
+																				data-color="deep-orange" data-toggle="modal"
+																				th:attr="data-target='#ModalCancelarR'+${resp.idRespuesta}">
+																				<i class="material-icons">clear</i>
+																			</button>
+																		</div> <!--Modal cancelar-->
+																		<div class="modal fade"
+																			th:id="'ModalCancelarR'+${resp.idRespuesta}"
+																			tabindex="-1" role="dialog">
+																			<div class="modal-dialog modal-sm" role="document">
+																				<div class="modal-content modal-col-red">
+
+																					<div class="modal-header">
+																						<h4 class="modal-title" id="smallModalLabel">
+																							SEGURO QUE DESEA ELIMINAR LA RESPUESTA? <br
+																								th:text="${resp.rRespuesta}" />
+																						</h4>
+																					</div>
+
+																					<div class="modal-body"></div>
+																					<div class="modal-footer">
+																						<a role="button" class="btn btn-link waves-effect"
+																							href=""
+																							th:href="@{/adminExamen/removeRespuesta(idRespuesta=${resp.idRespuesta},idEvaluacion=${idEvaluacion})}">Si</a>
+																						<button type="button"
+																							class="btn btn-link waves-effect"
+																							data-dismiss="modal">CLOSE</button>
+																					</div>
+
+																				</div>
+																			</div>
+																		</div>
+																	</td>
+																	<td style="border: hidden;"><input type="checkbox"
+																		id="remember_me" class="filled-in" /><label
+																		for="remember_me"></label></td>
+																	<td th:text="${resp.rRespuesta}" style="border: hidden"></td>
+																	<td th:if="${resp.rSolucion}==1"
+																		style="border: hidden; background-color: #5BFF33">Correcta</td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+													<!--Modal cancelar-->
+													<div class="modal fade"
+														th:id="'ModalCancelarP'+${pregunta.idPregunta}"
+														tabindex="-1" role="dialog">
+														<div class="modal-dialog modal-sm" role="document">
+															<div class="modal-content modal-col-red">
+
+																<div class="modal-header">
+																	<h4 class="modal-title" id="smallModalLabel">
+																		SEGURO QUE DESEA ELIMINAR LA PREGUNTA? <br
+																			th:text="${pregunta.pPregunta}" />
+																	</h4>
+																</div>
+
+																<div class="modal-body"></div>
+																<div class="modal-footer">
+																	<a role="button" class="btn btn-link waves-effect"
+																		href=""
+																		th:href="@{/adminExamen/removePregunta(idPregunta=${pregunta.idPregunta},idEvaluacion=${idEvaluacion})}">Si</a>
+																	<button type="button" class="btn btn-link waves-effect"
+																		data-dismiss="modal">CLOSE</button>
+																</div>
+
+															</div>
+														</div>
+													</div>
+													<!-- Agregar respuesta -->
+													<div class="modal fade"
+														th:id="'ModalRespuesta'+${pregunta.idPregunta}"
+														tabindex="-1" role="dialog">
+														<div class="modal-dialog" role="document">
+															<div class="modal-content">
+																<div class="modal-content">
+																	<div class="modal-header">
+																		<h4 class="modal-title" id="smallModalLabel">Agregar
+																			Respuesta</h4>
+																	</div>
+																	<div class="modal-body">
+																		<p th:text="${pregunta.idPregunta}"></p>
+																		<!-- Respuestas opcion multiple -->
+																		<div class="body">
+																			<form action="#"
+																				th:action="@{/adminExamen/addRespuesta}"
+																				th:object="${respuestasModel}" method="POST">
+																				<input type="hidden" name="idPregunta"
+																					th:value="${pregunta.idPregunta}" /> <input
+																					type="hidden" /> <input type="hidden"
+																					name="idEvaluacion" th:value="${idEvaluacion}" />
+																				<input type="hidden" /> <input type="hidden"
+																					th:field="*{idRespuesta}"></input>
+																				<div class="row clearfix">
+																					<div class="col-md-6">
+																						<label for="title">Respuesta</label>
+																						<div class="form-group">
+																							<div class="form-line">
+																								<input type="text" id="pregunta"
+																									class="form-control"
+																									placeholder="Escribe respuesta"
+																									th:field="*{rRespuesta}" required=""
+																									aria-required="true" />
+																							</div>
+																						</div>
+																					</div>
+																					<div class="col-md-6">
+																						<label for="title">Solucion</label>
+																						<div class="input-group form-group">
+																							<input type="radio" th:name="'esSolucion'+${pregunta.idPregunta}"
+																								th:id="'radio1'+${pregunta.idPregunta}"
+																								class="with-gap" required=""
+																								aria-required="true" th:field="*{rSolucion}"
+																								value="1" /> <label th:for="'radio1'+${pregunta.idPregunta}">Si</label> <input
+																								type="radio" th:name="'esSolucion'+${pregunta.idPregunta}"
+																								th:id="'radio2'+${pregunta.idPregunta}"
+																								class="with-gap" th:field="*{rSolucion}"
+																								value="0" checked="checked" required=""
+																								aria-required="true" /> <label th:for="'radio2'+${pregunta.idPregunta}"
+																								class="m-l-20">No</label>
+																						</div>
+
+																					</div>
+																				</div>
+																				<div class="modal-footer">
+																					<button type="submit"
+																						class="btn btn-primary waves-effect">GUARDAR</button>
+																					<button type="button"
+																						class="btn btn-danger waves-effect"
+																						data-dismiss="modal">CERRAR</button>
+																				</div>
+																			</form>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</section>
+</body>
+</html>

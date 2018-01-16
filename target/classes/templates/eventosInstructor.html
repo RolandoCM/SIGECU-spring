@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>Eventos por Instructor</title>
+
+<!-- Google Fonts 
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext"
+	rel="stylesheet" type="text/css"/>-->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet" type="text/css" />
+
+<!-- Bootstrap Core Css -->
+<link th:href="@{/plugins/bootstrap/css/bootstrap.css}" rel="stylesheet" />
+
+<!-- Waves Effect Css -->
+<link th:href="@{/plugins/node-waves/waves.css}" rel="stylesheet" />
+
+<!-- Animation Css -->
+<link th:href="@{/plugins/animate-css/animate.css}" rel="stylesheet" />
+
+
+<!-- Custom Css -->
+<link th:href="@{/css/style.css}" rel="stylesheet" />
+
+<!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
+<link th:href="@{/css/themes/all-themes.css}" rel="stylesheet" />
+
+
+</head>
+<body class="theme-red">
+<section th:include="@{fragment/menuInstructor}"></section>
+	<section class="content">
+	<div class="container-fluid">
+			<div class="block-header">
+				<h2>SEGUIMIENTO DE ALUMNOS</h2>
+			</div>
+			<!-- Basic Example -->
+			<div class="row clearfix">
+
+				<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12"
+					th:each="evento : ${listarEventos}">
+					<div class="card">
+						<div class="header bg-cyan">
+							<h2 th:text="${evento.curso.getcNombre()}"></h2>
+							<ul class="header-dropdown m-r--5">
+
+							</ul>
+						</div>
+						<div class="body">
+							<div class="input-group input-group-lg">
+								<span class="input-group-addon"> <i
+									class="material-icons">view_compact</i>
+								</span>
+								<div class="form-line">
+									<span th:text="${evento.geteFechaInicio()}"></span>
+								</div>
+							</div>
+							<a th:href="@{/instructor/alumnosEvento?idEvento=__${evento.getIdevento()}__}">
+								<button type="button" class="btn btn-primary waves-effect">
+									<i class="material-icons">question_answer</i> <span>Alumnos Inscritos</span>
+								</button>
+							</a>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>           
+        </section>
+<!-- Jquery Core Js -->
+	<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+
+	<!-- Bootstrap Core Js -->
+	<script th:src="@{/plugins/bootstrap/js/bootstrap.js}"></script>
+
+	<!-- Select Plugin Js -->
+	<script th:src="@{/plugins/bootstrap-select/js/bootstrap-select.js}"></script>
+
+	<!-- Slimscroll Plugin Js -->
+	<script th:src="@{/plugins/jquery-slimscroll/jquery.slimscroll.js}"></script>
+
+	<!-- Bootstrap Notify Plugin Js -->
+	<script th:src="@{/plugins/bootstrap-notify/bootstrap-notify.js}"></script>
+
+	<!-- Waves Effect Plugin Js -->
+	<script th:src="@{/plugins/node-waves/waves.js}"></script>
+
+
+	<!-- Custom Js -->
+	<script th:src="@{/js/admin.js}"></script>
+	<script th:src="@{/js/pages/cards/colored.js}"></script>
+
+	<!-- Demo Js -->
+	<script th:src="@{/js/demo.js}"></script>
+</body>
+</html>

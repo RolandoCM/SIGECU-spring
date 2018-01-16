@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Evaluacion | Alumno</title>
+
+<meta charset="UTF-8" />
+<meta
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+	name="viewport" />
+<!-- Favicon-->
+
+<link rel="icon" th:href="@{/favicon.ico}" type="image/x-icon" />
+<link rel="stylesheet"
+	th:href="@{/fonts/material-design-icons-master/material-icons.css}" />
+<!-- Bootstrap Core Css -->
+<link th:href="@{/plugins/bootstrap/css/bootstrap.css}" rel="stylesheet" />
+<!-- Waves Effect Css -->
+<link th:href="@{/plugins/node-waves/waves.css}" rel="stylesheet" />
+<!-- Animation Css -->
+<link th:href="@{/plugins/animate-css/animate.css}" rel="stylesheet" />
+<!-- Sweet Alert Css -->
+<link th:href="@{/plugins/sweetalert/sweetalert.css}" rel="stylesheet" />
+<!-- Custom Css -->
+<link th:href="@{/css/style.css}" rel="stylesheet" />
+<!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
+<link th:href="@{/css/themes/all-themes.css}" rel="stylesheet" />
+
+ <script th:src="@{/js/cronometro.js}"></script>
+    <style type='text/css'>
+
+	input.invisible {
+		visibility:hidden;
+	}
+	</style>
+
+
+</head>
+
+<body class="theme-red" onload="carga()">
+	<section th:include="fragment/menualumno"></section>
+
+	<section class="content">
+		<div class="container-fluid">
+
+			<!-- #END# Basic Example | Horizontal Layout -->
+			<!-- Basic Example | Vertical Layout -->
+			<div class="row clearfix">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="card">
+						<div class="header">
+							<h2>Examen</h2>
+							<ul class="header-dropdown m-r--5">
+								<li class="dropdown"><a href="javascript:void(0);"
+									class="dropdown-toggle" data-toggle="dropdown" role="button"
+									aria-haspopup="true" aria-expanded="false"> <i
+										class="material-icons">more_vert</i>
+								</a></li>
+							</ul>
+				<input type="hidden" id="horaInicio" th:value="${eHoraInicio}" class="invisible"/>
+<input type="hidden" id="horaFin" th:value="${eHoraFin}" class="invisible"/>
+<input type="hidden" id="tiempo" name="2" th:value="${eTiempo}" class="insivible"/>
+                        	
+ <span id="horas"></span>:<span id="minutos"></span>:<span id="segundos"></span>
+                        
+                        <a href="#" th:href="@{/EvaluacionAlumno/finaliza(idEvento=${idEvento},idEvaluacion=${idEvaluacion},
+							idPregunta=${listaPreguntas.get(0).idPregunta},asignaExamen=${examenAsignado.idasignaExamen})}">
+									<button type="button"
+										class="btn btn-primary btn-lg m-l-15 waves-effect">Finalizar</button>
+								</a>
+						</div>
+
+
+
+						<div class="body">
+							<form action="#" th:action="@{/EvaluacionAlumno/guardaRespuesta(idEvento=${idEvento},idEvaluacion=${idEvaluacion},
+							idPregunta=${listaPreguntas.get(0).idPregunta},asignaExamen=${examenAsignado.idasignaExamen})}"
+							th:object="${respuestaAlumno}" method="POST">
+							
+								<div class="card">
+								<div>
+								<p th:text="${listaPreguntas.get(0).pPregunta}"></p>
+								</div>
+								
+								<div th:each=" respuesta : ${listaPreguntas.get(0).respuestasModel}">	
+									<input type="radio" th:field="*{idRespuesta}" th:value="${respuesta.idRespuesta}" />
+									<label th:for="${#ids.prev('idRespuesta')}" th:text="${respuesta.rRespuesta}"></label>
+								</div>
+								</div>
+								<button type="submit" class="btn btn-primary m-t-15 waves-effect">SIGUIENTE</button>
+
+							</form>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+	<!-- #END# Basic Example | Vertical Layout -->
+
+
+	<!-- Jquery Core Js -->
+
+
+	<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+
+	<!-- Bootstrap Core Js -->
+	<script th:src="@{/plugins/bootstrap/js/bootstrap.js}"></script>
+
+	<!-- Select Plugin Js -->
+	<script th:src="@{/plugins/bootstrap-select/js/bootstrap-select.js}"></script>
+
+	<!-- Slimscroll Plugin Js -->
+	<script th:src="@{/plugins/jquery-slimscroll/jquery.slimscroll.js}"></script>
+
+	<!-- Jquery Validation Plugin Css -->
+	<script th:src="@{/plugins/jquery-validation/jquery.validate.js}"></script>
+
+	<!-- JQuery Steps Plugin Js -->
+	<script th:src="@{/plugins/jquery-steps/jquery.steps.js}"></script>
+
+	<!-- Sweet Alert Plugin Js -->
+	<script th:src="@{/plugins/sweetalert/sweetalert.min.js}"></script>
+
+	<!-- Waves Effect Plugin Js -->
+	<script th:src="@{/plugins/node-waves/waves.js}"></script>
+
+	<!-- Custom Js -->
+	<script th:src="@{/js/admin.js}"></script>
+	<script th:src="@{/js/pages/forms/form-wizard.js}"></script>
+
+
+
+	<!-- Demo Js -->
+	<script th:src="@{/js/demo.js}"></script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<html>
+<head>
+</head>
+<body>
+	<table>
+		<thead>
+			<tr>
+				<td>Nombre</td>
+				<td>Usuario</td>
+				<td>Contraseña</td>
+				<th>Accion</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="alumno : ${alumnos}">
+				<td th:text="${alumno:nombre}"></td>
+				<td th:text="${alumno.usuario}"></td>
+				<td th:text="${alumno.email}"></td>
+				<td th:text="${alumno.passw}"></td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>
