@@ -45,4 +45,8 @@ public class ViewConstant {
 	public static final String EXAMENES_ALUMNO = "evaluacioneAlumno";
 
 	public static final String CURSOS_ALUMNO = "cursosAlumno";
+	
+	
+	//insertar Alumno
+	public static final String ALUMNO_FORM = "alumno";
 }

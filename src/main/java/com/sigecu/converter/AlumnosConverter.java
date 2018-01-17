@@ -38,6 +38,18 @@ private static final Log LOG = LogFactory.getLog(CertificadoConverter.class);
 	}
 	
 	//model -- to -- entity
-	
+	public Alumno converterAlumnoModelToAlumno(AlumnoModel alm) {
+		Alumno almo = new Alumno();
+		almo.setaNombre(alm.getA_nombre());
+		almo.setaPaterno(alm.getA_paterno());
+		almo.setaMaterno(alm.getA_materno());
+		almo.setaCarrera(alm.getA_carrera());
+		almo.setaEmail(alm.getA_email());
+		almo.setaTelefono(alm.getA_telefono());
+		almo.setaStatus(alm.getA_status());
+		almo.setaNotebook(alm.getA_notebook());
+		LOG.info("AlumnoModel se convierte a Alumno");
+		return almo;
+	}
 
-}
+	}

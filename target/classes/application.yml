@@ -3,12 +3,12 @@ banner:
     
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/sigecu?useSSL=false
+    url: jdbc:mysql://localhost:3306/sigecu1?useSSL=false
     username: root
 
 
 
-    password: martinez
+    password: root
 
 
   jpa:
