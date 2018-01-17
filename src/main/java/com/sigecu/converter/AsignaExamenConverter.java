@@ -34,4 +34,13 @@ public class AsignaExamenConverter {
 		
 		return asignaExamenModel;
 	}
+	
+	public AsignaExamenEntity converterAsignaExamenModelToAsignaExamenEntity(AsignaExamenModel asignaModel) {
+		AsignaExamenEntity asignaExamen = new AsignaExamenEntity();
+		asignaExamen.setFechaInicio(asignaModel.getFechaInicio());
+		asignaExamen.setFechaFin(asignaModel.getFechaFin());
+		asignaExamen.setAsignado(asignaModel.getAsignado());
+		asignaExamen.setIdasignaExamen(asignaModel.getIdasignaExamen());
+		return asignaExamen;
+	}
 }

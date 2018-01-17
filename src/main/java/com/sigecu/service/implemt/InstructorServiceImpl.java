@@ -21,8 +21,10 @@ import com.sigecu.entity.Alumno;
 import com.sigecu.entity.Alumno_Has_Eventos;
 import com.sigecu.entity.Eventos;
 import com.sigecu.entity.Instructor;
+import com.sigecu.exception.BusinessException;
 import com.sigecu.model.AlumnoModel;
 import com.sigecu.model.EventosModel;
+import com.sigecu.repository.AlumnoRepository;
 import com.sigecu.repository.EventosRepository;
 import com.sigecu.repository.InstructorRepository;
 import com.sigecu.service.InstructorService;
@@ -47,6 +49,10 @@ public class InstructorServiceImpl implements InstructorService {
 	@Autowired
 	@Qualifier("eventosConverter")
 	private EventosConverter eventosConverter;
+	
+	@Autowired
+	@Qualifier("alumnoRepository")
+	private AlumnoRepository alumnoRepository;
 	
 	@Autowired
 	@Qualifier("alumnosConverter")

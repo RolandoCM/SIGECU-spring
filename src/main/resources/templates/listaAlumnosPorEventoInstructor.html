@@ -69,7 +69,7 @@
 											<td th:text="${alumno.getA_nombre()}"></td>
 											<td th:text="${alumno.getA_email()}"></td>
 											<td><a href="#"
-												th:href="@{/instructor/seguimientoAlumno?idAlumno=__${alumno.getId_alumno()}__}">
+												th:href="@{/instructor/seguimientoAlumno(idEvento=${idEvento},idAlumno=${alumno.getId_alumno()})}">
 													<button type="button" class="btn btn-default">
 														<span class="glyphicon glyphicon-pencil"
 															aria-hidden="true">Seguimiento</span>

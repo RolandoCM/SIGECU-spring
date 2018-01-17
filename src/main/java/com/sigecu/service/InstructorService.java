@@ -5,6 +5,7 @@ package com.sigecu.service;
 
 import java.util.List;
 
+import com.sigecu.exception.BusinessException;
 import com.sigecu.model.AlumnoModel;
 import com.sigecu.model.EventosModel;
 
