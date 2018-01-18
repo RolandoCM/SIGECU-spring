@@ -71,8 +71,7 @@ public class UserService implements UserDetailsService{
 	}
 	
 	//tranforma roles a listado de GratedAuthority para saber roles de eusuario
-	private List<GrantedAuthority> buildAuthorities (Set<UserRole> userRoles){
-		
+	private List<GrantedAuthority> buildAuthorities (Set<UserRole> userRoles){	
 		try {
 			
 			Set<GrantedAuthority> auths = new HashSet<GrantedAuthority>();
@@ -85,7 +84,7 @@ public class UserService implements UserDetailsService{
 		}
 		catch(Exception e) {
 			e.printStackTrace();
-			LOG.error("ERROR EN SERVICE");
+			LOG.error("ERROR EN SERVICE: Convertir roles a listado de GratedAuthority");
 			throw e;
 			
 		}

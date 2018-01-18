@@ -82,13 +82,26 @@ public class PreguntasErradasController {
 			// TODO Auto-generated catch block
 			LOG.info("ID: "+e.getIdException()+" MENSAJE: "+e.getMsj());
 			e.printStackTrace();
+			throw e;
+		}
+		catch(Exception e){
+			LOG.error("ERROR EN SERVICE: ID alumno NO encontrado");
+			e.printStackTrace();
+			throw e;
 		}
 		try {
 			asignaExamen = validaRealizarExamenAlumno.asignarExamen(idAlumno, idEvento);
 			LOG.info("ASIGNA EXAMEN: "+asignaExamen.getIdasignaExamen());
 			mav.addObject("examenAsignado", asignaExamen);
 		} catch (BusinessException e) {
+			LOG.info("ID: "+e.getIdException()+"MENSAJE: "+e.getMsj());
 			e.printStackTrace();
+			throw e;
+		}
+		catch(Exception e) {
+			LOG.error("ERROR EN SERVICE: ID examen no encontrado");
+			e.printStackTrace();
+			throw e;
 		}
 		if(mostrarRetroalimentacion) {
 			mav.setViewName(ViewConstant.PREGUNTAS_ERRADAS);

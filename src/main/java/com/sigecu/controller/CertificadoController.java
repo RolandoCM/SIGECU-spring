@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView;
 
 import com.sigecu.constant.ViewConstant;
+import com.sigecu.exception.BusinessException;
 import com.sigecu.model.AlumnoModel;
 import com.sigecu.service.CertificadoService;
 import com.sigecu.service.DefineUsuarioService;
@@ -61,7 +62,7 @@ public class CertificadoController {
 	
 	@GetMapping("/certificado2")
 		public ModelAndView certificado2(
-			@RequestParam(name = "idEvento", required = false) int idEvento) {
+			@RequestParam(name = "idEvento", required = false) int idEvento) throws BusinessException{
 		JasperReportsPdfView cerView = new JasperReportsPdfView();
 		cerView.setUrl("classpath:reports/certificadoR.jasper");
 		cerView.setApplicationContext(applicationContext);

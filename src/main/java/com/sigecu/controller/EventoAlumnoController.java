@@ -55,7 +55,6 @@ public class EventoAlumnoController {
 			be.setIdException(001);
 			be.setMsj("ERROR EN SERVICE: Alumno no encontrado");
 			throw be;
-			
 		}
 		return mav;
 		

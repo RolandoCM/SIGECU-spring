@@ -68,7 +68,12 @@ public class InstructorServiceImpl implements InstructorService {
 		}
 		}
 		catch(Exception e) {
-			
+			LOG.error("METODO NO EJECUTADO");
+			BusinessException be =  new BusinessException();
+			be.printStackTrace();
+			be.setIdException(001);
+			be.setMsj("ERROR EN SERVICE: NO SE ENCONTRARON EVENTOS");
+			throw be;
 		}
 		return eventosModel;
 	}
@@ -77,17 +82,28 @@ public class InstructorServiceImpl implements InstructorService {
 	 * @see com.sigecu.service.InstructorService#alumnosPorEvento(int)
 	 */
 	@Override
-	public List<AlumnoModel> alumnosPorEvento(int idEvento) {
+	public List<AlumnoModel> alumnosPorEvento(int idEvento) throws BusinessException {
 		// TODO Auto-generated method stub
 		Eventos evento = eventoRepository.findByIdEvento(idEvento);
 		Set<Alumno_Has_Eventos> alumnosHasEventos = evento.getAlumnosHasEventos();
 		Iterator<Alumno_Has_Eventos> iter = alumnosHasEventos.iterator();
 		List<AlumnoModel> alumnosModel = new ArrayList<>();
+		
+		try {
 		while(iter.hasNext()) {
 			Alumno alumno = iter.next().getAlumno();
 			AlumnoModel alumnoModel = alumnosConverter.converterAlumnoToAlumnoModel(alumno);
 			alumnosModel.add(alumnoModel);
 			//LOG.info("ALUMNO EN EVENTO: "+ iter.next().getAlumno().getaNombre());;
+		}
+	}
+		catch(Exception e) {
+			LOG.error("METODO NO EJECUTADO");
+			BusinessException be = new BusinessException();
+			be.printStackTrace();
+			be.setIdException(001);
+			be.setMsj("ERROR EN SERVICE: Lista vacia");
+			throw be;
 		}
 		return alumnosModel;
 	}

@@ -14,6 +14,7 @@ import com.sigecu.converter.InstructorConverter;
 import com.sigecu.entity.Alumno;
 import com.sigecu.entity.Instructor;
 import com.sigecu.entity.Users;
+import com.sigecu.exception.BusinessException;
 import com.sigecu.model.AlumnoModel;
 import com.sigecu.model.InstructorModel;
 import com.sigecu.repository.AlumnoRepository;
@@ -53,7 +54,7 @@ public class DefineUsuario implements DefineUsuarioService{
 	 * @see com.sigecu.service.DefineUsuarioService#buscarNombreUsuario(com.sigecu.entity.Users)
 	 */
 	@Override
-	public AlumnoModel buscarUsuarioAlumno(String user) {
+	public AlumnoModel buscarUsuarioAlumno(String user)  throws BusinessException{
 		Users users =userRepository.findByUsername(user);
 		LOG.info("ROLES: "+ users.getUserRole());
 		LOG.info("USER TIENE ROLE: "+users.getUserRole().size());
@@ -65,7 +66,7 @@ public class DefineUsuario implements DefineUsuarioService{
 	 * @see com.sigecu.service.DefineUsuarioService#buscarUsuarioInstructor(java.lang.String)
 	 */
 	@Override
-	public InstructorModel buscarUsuarioInstructor(String user) {
+	public InstructorModel buscarUsuarioInstructor(String user) throws BusinessException {
 		Users users = userRepository.findByUsername(user);
 		LOG.info("USER TIENE ROLE: "+users.getUserRole());
 		Instructor instructor = instructorRepository.findByUser(users);

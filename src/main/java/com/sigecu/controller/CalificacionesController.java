@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sigecu.constant.ViewConstant;
+import com.sigecu.exception.BusinessException;
 import com.sigecu.model.AlumnoModel;
 import com.sigecu.service.CalificacionService;
 import com.sigecu.service.DefineUsuarioService;
@@ -50,7 +51,7 @@ public class CalificacionesController {
 	
 	@GetMapping("/mostrarCalificaciones")
 	public ModelAndView mostrarExamen(@RequestParam(name = "idEvaluacion", required = false) int idEvaluacion,
-			@RequestParam(name = "idAsignaExamen", required = false) int idAsignaExamen){
+			@RequestParam(name = "idAsignaExamen", required = false) int idAsignaExamen) throws BusinessException{
 		ModelAndView mav = new ModelAndView(ViewConstant.CALIFICACIONEXAMEN );
 		
 		user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -66,6 +67,10 @@ public class CalificacionesController {
 			e.printStackTrace();
 		} catch (MessagingException e) {
 			LOG.info("Error en el envio del correo");
+			e.printStackTrace();
+		}
+		catch(Exception e) {
+			LOG.error("ERROR EN SERVICE: Metodo no ejecutado");
 			e.printStackTrace();
 		}
 		return mav;

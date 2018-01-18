@@ -15,6 +15,7 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.jfree.util.Log;
 import org.springframework.stereotype.Service;
 
 /**
@@ -28,8 +29,7 @@ public class EmailService {
     
     /*metodo estatico para enviar correo a un destinatario
     * */
-    public void send(String toMail, String subject, String body) throws AddressException, MessagingException
-    {
+    public void send(String toMail, String subject, String body) throws AddressException, MessagingException{
         Properties props = System.getProperties();
         String host = "smtp.gmail.com";
         props.put("mail.smtp.starttls.enable", "true");
@@ -58,22 +58,29 @@ public class EmailService {
     }  //fin del metodo
     
     /* metodo para enviar email a mas de un destinatario*/
-     public void send(List<String> toMail, String subject, String body) throws AddressException, MessagingException
-    {
+     public void send(List<String> toMail, String subject, String body) throws AddressException, MessagingException{
+    	 
+    
         Properties props = System.getProperties();
         String host = "smtp.gmail.com";
+       
+        try {
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.host", host);
         props.put("mail.smtp.user", FROM);
         props.put("mail.smtp.password", PASSWORD);
         props.put("mail.smtp.port", "587");
         props.put("mail.smtp.auth", "true");
-
+       
         Session session = Session.getDefaultInstance(props);
         MimeMessage message = new MimeMessage(session);
        
         message.setFrom(new InternetAddress(FROM));
         List<InternetAddress> toAddress = new ArrayList<>();
+        
+        Transport transport = session.getTransport("smtp");
+        transport.connect(host, FROM, PASSWORD);
+        transport.sendMessage(message, message.getAllRecipients());
         
         
         for (String to : toMail) {
@@ -85,12 +92,20 @@ public class EmailService {
         }
         message.setSubject(subject);
         message.setText(body);
-        try { 
-        	Transport transport = session.getTransport("smtp");
-            transport.connect(host, FROM, PASSWORD);
-            transport.sendMessage(message, message.getAllRecipients());
-        }catch(Exception e) {
-        	
+        }
+        catch(AddressException ae) {
+        	ae.printStackTrace();
+        	Log.error("DIRECCIÓN NO VALIDA");
+        	throw ae;
+        
+        }catch(MessagingException me) {
+        	me.printStackTrace();
+        	Log.error("EMAIL NO ENCONTRADO");
+        	throw me;
+        }
+        catch(Exception e) {
+        	e.printStackTrace();
+        	Log.error("ERROR EN SERVICE: ");
         }
     }//fin del metodo send
 }

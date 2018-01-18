@@ -3,6 +3,7 @@
  */
 package com.sigecu.service;
 
+import com.sigecu.exception.BusinessException;
 import com.sigecu.model.AlumnoModel;
 import com.sigecu.model.InstructorModel;
 
@@ -13,6 +14,6 @@ import com.sigecu.model.InstructorModel;
  *
  */
 public interface DefineUsuarioService {
-	public abstract AlumnoModel buscarUsuarioAlumno(String user);
-	public abstract InstructorModel buscarUsuarioInstructor(String user);
+	public abstract AlumnoModel buscarUsuarioAlumno(String user) throws BusinessException;
+	public abstract InstructorModel buscarUsuarioInstructor(String user) throws BusinessException;
 }
