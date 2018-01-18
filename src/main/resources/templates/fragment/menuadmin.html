@@ -100,12 +100,14 @@
                             <span>Crear Curso</span>
                         </a>
                     </li>
-                     <li th:each="evento">
-                         <a href="/adminEvento/nuevoEvento?idEvento=__${evento.idEvento}__">
+               
+                     <li>
+                         <a  th:each="evento" href="/adminEvento/nuevoEvento?idEvento=__${evento.idEvento}__">
                           <i class="material-icons">note_add</i>
                             <span>Crear Evento</span>
                         </a>
                     </li>
+                   
                     <li>
                          <a href="/adminExamen/listaCursos">
                             <i class="material-icons">note_add</i>
