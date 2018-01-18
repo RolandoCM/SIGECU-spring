@@ -21,6 +21,7 @@ import com.sigecu.entity.Evaluaciones;
 import com.sigecu.entity.Preguntas;
 import com.sigecu.entity.RespuestaALMEntity;
 import com.sigecu.entity.Respuestas;
+import com.sigecu.exception.BusinessException;
 import com.sigecu.model.CursoModel;
 import com.sigecu.model.EvaluacionesModel;
 import com.sigecu.model.PreguntasModel;
@@ -80,31 +81,64 @@ public class PreguntasErradasConServiceImplement implements PreguntasErradasConS
 	}
  //listar Evaluaiones
 	@Override
-	public List<EvaluacionesModel> listarEvaluaciones(int idCurso) {
+	public List<EvaluacionesModel> listarEvaluaciones(int idCurso) throws BusinessException {
 		List<Evaluaciones> evaluaciones = queryEvaluacion.findAllExamenesById(idCurso);
 		List<EvaluacionesModel> evaluacionModel = new ArrayList<EvaluacionesModel>();
-
+		
+		try {
+			
 		for (Evaluaciones evaluacion : evaluaciones) {
 			evaluacionModel.add(evaluacionConverter.convertEvaluacion2EvaluacionModel(evaluacion));
 		}
 		LOG.info("BUSCAR examen de CURSO " + idCurso);
+		
 		return evaluacionModel;
+	
+		}
+		catch(Exception e) {
+			LOG.error("NO SE EJECUTO EL METODO");
+			BusinessException be = new BusinessException();
+			be.printStackTrace();
+			be.setIdException(001);
+			be.setMsj("ERROR EN SERVICE: Error en busqueda de curso");
+			throw be;
+		}
+		
 	}
+
 	
 	//listar CUrsos
-	public List<CursoModel> listaCursos() {
+	public List<CursoModel> listaCursos() throws BusinessException{
 		List<Cursos> cursos = cursoRepository.findAll();
 		List<CursoModel> cursoModel = new ArrayList<CursoModel>();
+		
+		try {
+		
 		for (Cursos curso : cursos) {
 			cursoModel.add(cursosConverter.convertCursoToCursoModel(curso));
 		}
+		
+		}
+		catch(Exception e) {
+			LOG.error("NO SE EJECUTO EL METODO");
+			BusinessException be = new BusinessException();
+			be.printStackTrace();
+			be.setIdException(001);
+			be.setMsj("ERROR EN SERVICE: Convertir curso a CursoModel");
+			throw be;
+		}
 		return cursoModel;
+	
 	}
+
+
 	@Override
-	public List<PreguntasRetroModel> listarPregunrasByExam(int idEvaluacion, int idAsignaExamen) {
+	public List<PreguntasRetroModel> listarPregunrasByExam(int idEvaluacion, int idAsignaExamen) throws BusinessException {
 		List<Preguntas> listPreguntas = queryEvaluacion.findAllPreguntasById(idEvaluacion);
 		List<Preguntas> listPreguntasErr = queryEvaluacion.findPreguntasErradasRetro(idEvaluacion, idAsignaExamen);
 		List<PreguntasRetroModel> preguntasRetroModel = new ArrayList<PreguntasRetroModel>();
+		
+		try {
 
 		for (Preguntas pregunta : listPreguntas) {
 			if(listPreguntasErr.contains(pregunta)) {
@@ -119,6 +153,16 @@ public class PreguntasErradasConServiceImplement implements PreguntasErradasConS
 		LOG.info("TOTAL: PREGUNTAS : "+ listPreguntas.size());
 		//LOG.info(preguntasModel.iterator().next().getRespuestasModel().iterator().next().getPregunta());
 		return preguntasRetroModel;
+		}
+		catch(Exception e) {
+			LOG.error("NO SE EJECUTO EL METODO");
+			BusinessException be = new BusinessException();
+			be.printStackTrace();
+			be.setIdException(001);
+			be.setMsj("ERROR EN SERVICE: PREGUNTAS FUERA DE INDICE / PREGUNTAS NO ENCONTRADAS ");
+			throw be;
+			
+		}
 	}
 	
 	
@@ -140,6 +184,6 @@ public class PreguntasErradasConServiceImplement implements PreguntasErradasConS
 		return null;
 	}
 	
-	
+
 
 }

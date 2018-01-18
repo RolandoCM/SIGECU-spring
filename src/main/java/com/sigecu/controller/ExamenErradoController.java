@@ -66,7 +66,7 @@ public class ExamenErradoController {
 	@GetMapping("/ExamenErrado1")
 	public ModelAndView ExamenErrado1(@RequestParam(name="idEvento", required=true)int idEvento,
 			@RequestParam(name="idEvaluacion", required=true)int idEvaluacion, 
-			Model model) {
+			Model model) throws BusinessException {
 		
 		boolean validaReactivado= false; 
 		user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -124,7 +124,7 @@ public class ExamenErradoController {
 			@RequestParam(name = "idEvaluacion", required = false) int idEvaluacion,
 			@RequestParam(name = "asignaExamen", required = true) int idAsignaExamen,
 			@RequestParam(name = "idPregunta", required = true) int idPregunta,
-			@ModelAttribute(name = "respuestaAlumno") VistaRespuestasAlumno respuestaAlumno) {
+			@ModelAttribute(name = "respuestaAlumno") VistaRespuestasAlumno respuestaAlumno) throws BusinessException{
 
 		 examenErradoService.guardarRespuestas(respuestaAlumno.getIdRespuesta(), idAsignaExamen, idPregunta);
 		 LOG.info("EXAMEN GUARDADO: " + respuestaAlumno.toString() + " ASIGNA EXAMEN =" + idAsignaExamen);
@@ -136,7 +136,7 @@ public class ExamenErradoController {
 			@RequestParam(name = "idEvaluacion", required = false) int idEvaluacion,
 			@RequestParam(name = "asignaExamen", required = true) int idAsignaExamen,
 			@RequestParam(name = "idPregunta", required = true) int idPregunta,
-			@ModelAttribute(name = "respuestaAlumno") VistaRespuestasAlumno respuestaAlumno) {
+			@ModelAttribute(name = "respuestaAlumno") VistaRespuestasAlumno respuestaAlumno) throws BusinessException{
 
 		//evaluacionAlumnoService.guardarRespuestas(respuestaAlumno.getIdRespuesta(), idAsignaExamen);
 		examenErradoService.guardarRespuestas(respuestaAlumno.getIdRespuesta(), idAsignaExamen, idPregunta);

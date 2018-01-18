@@ -3,6 +3,7 @@ package com.sigecu.controller;
 import com.sigecu.model.AlumnoModel;
 import com.sigecu.model.EventosModel;
 import com.sigecu.constant.ViewConstant;
+import com.sigecu.exception.BusinessException;
 import com.sigecu.service.DefineUsuarioService;
 import com.sigecu.service.eventoAlumnoService;
 import org.apache.commons.logging.Log;
@@ -37,7 +38,7 @@ public class EventoAlumnoController {
 	AlumnoModel alumnoModel;
 
 	@GetMapping("/listarEventos")
-	public ModelAndView mostrarEventos() {
+	public ModelAndView mostrarEventos() throws BusinessException{
 		ModelAndView mav=new ModelAndView(ViewConstant.EVENTOS_ALUMNO);
 		user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		alumnoModel =defineUsuario.buscarUsuarioAlumno(user.getUsername());
@@ -49,7 +50,7 @@ public class EventoAlumnoController {
 		
 	}
 	@GetMapping("/listarExamenAlumno")
-	public ModelAndView mostrarExamenAlumno(@RequestParam(name="idEvento", required=false)int idEvento, Model model) {
+	public ModelAndView mostrarExamenAlumno(@RequestParam(name="idEvento", required=false)int idEvento, Model model) throws BusinessException {
 		user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		alumnoModel =defineUsuario.buscarUsuarioAlumno(user.getUsername());
 		ModelAndView mav = new ModelAndView(ViewConstant.EXAMENES_ALUMNO);

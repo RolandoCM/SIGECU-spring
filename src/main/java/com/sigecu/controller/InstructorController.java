@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sigecu.constant.ViewConstant;
+import com.sigecu.exception.BusinessException;
 import com.sigecu.model.InstructorModel;
 import com.sigecu.service.DefineUsuarioService;
 import com.sigecu.service.InstructorService;
@@ -45,7 +46,7 @@ public class InstructorController {
 	private InstructorModel instructorModel;
 	
 	@GetMapping("/eventos")
-	public ModelAndView mostrarEventos() {
+	public ModelAndView mostrarEventos()throws BusinessException {
 		ModelAndView mav = new ModelAndView(ViewConstant.EVENTOS_INSTRUCTOR);
 		user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		instructorModel =defineUsuario.buscarUsuarioInstructor(user.getUsername());
@@ -54,7 +55,7 @@ public class InstructorController {
 		return mav;
 	}
 	@GetMapping("/alumnosEvento")
-	public ModelAndView mostrarAlumnosPorEvento(@RequestParam(name="idEvento", required=true) int idEvento) {
+	public ModelAndView mostrarAlumnosPorEvento(@RequestParam(name="idEvento", required=true) int idEvento) throws BusinessException{
 		ModelAndView mav = new ModelAndView(ViewConstant.ALUMNOS_EVENTOS_INSTRUCTOR);
 		LOG.info("MOSTRAR ALUMNOS POR EVENTO");
 		mav.addObject("user", instructorModel );

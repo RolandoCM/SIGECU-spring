@@ -44,10 +44,27 @@ public class UserService implements UserDetailsService{
 	 */
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Users user= userRepository.findByUsername(username);
-		List<GrantedAuthority> authorities = buildAuthorities(user.getUserRole());
-		return buildUser(user, authorities);
+		
+		try {
+		
+			Users user= userRepository.findByUsername(username);
+			List<GrantedAuthority> authorities = buildAuthorities(user.getUserRole());
+			
+			return buildUser(user, authorities);
+		
+		}
+		catch(UsernameNotFoundException e){
+			LOG.error("USUARIO NO ENCONTRADO");
+			throw e;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			LOG.error("ERROR EN SERVICE");
+			throw e;
+		}
 	}
+	
+	
 	private User buildUser(Users user, List<GrantedAuthority> authorities) {
 		
 		return new User(user.getUsername(), user.getPassword(), user.isEnabled(), true, true, true, authorities);
@@ -55,11 +72,26 @@ public class UserService implements UserDetailsService{
 	
 	//tranforma roles a listado de GratedAuthority para saber roles de eusuario
 	private List<GrantedAuthority> buildAuthorities (Set<UserRole> userRoles){
-		Set<GrantedAuthority> auths = new HashSet<GrantedAuthority>();
-		for(UserRole userRole : userRoles) {
-			auths.add(new SimpleGrantedAuthority(userRole.getRole()));
+		
+		try {
+			
+			Set<GrantedAuthority> auths = new HashSet<GrantedAuthority>();
+			for(UserRole userRole : userRoles) {
+				auths.add(new SimpleGrantedAuthority(userRole.getRole()));
+			
+				return new ArrayList<GrantedAuthority>(auths);
+			
+			}
 		}
-		return new ArrayList<GrantedAuthority>(auths);
+		catch(Exception e) {
+			e.printStackTrace();
+			LOG.error("ERROR EN SERVICE");
+			throw e;
+			
+		}
+		
+		return null;
 	}
-
 }
+	
+	

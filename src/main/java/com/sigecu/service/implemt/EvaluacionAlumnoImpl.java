@@ -18,6 +18,7 @@ import com.sigecu.entity.Evaluaciones;
 import com.sigecu.entity.Preguntas;
 import com.sigecu.entity.RespuestaALMEntity;
 import com.sigecu.entity.Respuestas;
+import com.sigecu.exception.BusinessException;
 import com.sigecu.model.EvaluacionesModel;
 import com.sigecu.model.PreguntasModel;
 import com.sigecu.repository.AlumnoRepository;
@@ -78,12 +79,13 @@ public class EvaluacionAlumnoImpl implements EvaluacionAlumnoService {
 	 * Agrega las preguntas que no estan contestadas
 	 */
 	@Override
-	public List<PreguntasModel> listarPreguntasByEvaluacion(int idEvaluacion, int idAsignaExamen) {
+	public List<PreguntasModel> listarPreguntasByEvaluacion(int idEvaluacion, int idAsignaExamen) throws BusinessException{
 		List<Preguntas> preguntasContestadas = queryEvaluacion.findPreguntas(idEvaluacion, idAsignaExamen);
 		Evaluaciones eval = evaluacionesRepository.findByIdEvaluacion(idEvaluacion);
 		List<Preguntas> preguntasExamen = preguntasRepository.findByEvaluaciones(eval);
 		List<PreguntasModel> preguntasFaltantesModel = new ArrayList<>();
 		
+		try {
 		for(Preguntas pregunta : preguntasExamen) {
 			if(!preguntasContestadas.contains(pregunta))
 				preguntasFaltantesModel.add(preguntasConverter.converterPreguntasToPreguntasModelAndRespuestas(pregunta));
@@ -91,11 +93,22 @@ public class EvaluacionAlumnoImpl implements EvaluacionAlumnoService {
 		LOG.info("PREGUNTAS PARA EXAMEN: "+preguntasExamen.size());
 		LOG.info("PREGUNTAS PARA RESPONDER: "+preguntasFaltantesModel.size());
 		LOG.info("PREGUNTAS RESPONDIDAS : "+preguntasContestadas.size());
+		
+		}
+		catch(Exception e) {
+			LOG.error("METODO NO EJECUTADO");
+			BusinessException be = new BusinessException();
+			be.printStackTrace();
+			be.setIdException(001);
+			be.setMsj("ERROR EN SERVICE: No se encontraron preguntas NO contestadas ");
+			throw be;
+			
+		}
 		return preguntasFaltantesModel;
 	}
 
 	@Override
-	public String tiempoExamen(int idEvaluacion) {
+	public String tiempoExamen(int idEvaluacion) throws BusinessException {
 		Evaluaciones eval = evaluacionesRepository.findByIdEvaluacion(idEvaluacion);
 		EvaluacionesModel evaluacionmodel = evaluacionConverter.convertEvaluacion2EvaluacionModel(eval);
 		return evaluacionmodel.geteTiempo();
@@ -107,17 +120,30 @@ public class EvaluacionAlumnoImpl implements EvaluacionAlumnoService {
 	 * @see com.sigecu.service.EvaluacionAlumnoService#guardarRespuestas(int, int)
 	 */
 	@Override
-	public void guardarRespuestas(int idRespuesta, int idAsignaExamen, int idPregunta) {
+	public void guardarRespuestas(int idRespuesta, int idAsignaExamen, int idPregunta)  throws BusinessException{
 		RespuestaALMEntity respuestaALMEntity = new RespuestaALMEntity();
 		// respuestaALMEntity.setRespuestas();
 		Respuestas respuesta = respuestasRepository.findByIdRespuesta(idRespuesta);
 		AsignaExamenEntity asignaExamen = asignaExamenRepository.findByIdasignaExamen(idAsignaExamen);
+		
+		try {
+			
 		respuestaALMEntity.setSeleccionada("1");
 		respuestaALMEntity.setIdRespuesta(idRespuesta);
 		respuestaALMEntity.setIdPregunta(idPregunta);
 		respuestaALMEntity.setAsignaExamen(asignaExamen);
 		respuestaALMRepository.save(respuestaALMEntity);
 		LOG.info("RESPUESTA REGISTRADA: " + respuestaALMEntity.toString());
+		}
+		catch(Exception e) {
+			LOG.error("METODO NO EJECUTADO");
+			BusinessException be = new BusinessException();
+			be.printStackTrace();
+			be.setIdException(001);
+			be.setMsj("ERROR EN SERVICE: ID asignaExamen NO encontrado");
+			throw be;
+		
+		}
 
 	}
 

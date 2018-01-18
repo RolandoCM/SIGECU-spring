@@ -5,6 +5,7 @@ package com.sigecu.service;
 
 import java.util.List;
 
+import com.sigecu.exception.BusinessException;
 import com.sigecu.model.CursoModel;
 
 /**
@@ -14,5 +15,5 @@ import com.sigecu.model.CursoModel;
  *
  */
 public interface  AlumnosPerfilService {
-	public abstract List<CursoModel> listaCursosParaAlumno ();
+	public abstract List<CursoModel> listaCursosParaAlumno () throws BusinessException;
 }

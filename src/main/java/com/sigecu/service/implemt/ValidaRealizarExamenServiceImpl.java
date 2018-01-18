@@ -54,16 +54,13 @@ public class ValidaRealizarExamenServiceImpl implements ValidarExamenAlumnoServi
 			} else {
 				return false;
 			}
-		} catch (BusinessException e) {
-			LOG.error("NO SE EJECUTO EL METODO");
-			throw e;
-
+		
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error("NO SE EJECUTO EL METODO");
 			BusinessException be = new BusinessException();
 			be.printStackTrace();
 			be.setIdException(001);
-			be.setMsj("ERROR EN SERVICE");
+			be.setMsj("ERROR EN SERVICE: EXAMEN NO ASIGNADO A ALUMNO");
 			throw be;
 		}
 	}
@@ -102,7 +99,7 @@ public class ValidaRealizarExamenServiceImpl implements ValidarExamenAlumnoServi
 			BusinessException be = new BusinessException();
 			be.printStackTrace();
 			be.setIdException(001);
-			be.setMsj("ERROR EN SERVICE");
+			be.setMsj("ERROR EN SERVICE: EXAMEN NO HABILITADO PARA 2DA OPORTUNIDAD");
 			throw be;
 		}
 	}
@@ -137,7 +134,7 @@ public class ValidaRealizarExamenServiceImpl implements ValidarExamenAlumnoServi
 			BusinessException be = new BusinessException();
 			be.printStackTrace();
 			be.setIdException(001);
-			be.setMsj("ERROR EN SERVICE");
+			be.setMsj("ERROR EN SERVICE: EXAMEN NO REALIZADO");
 			throw be;
 		}
 	}

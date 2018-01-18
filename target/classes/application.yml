@@ -6,9 +6,7 @@ spring:
     url: jdbc:mysql://localhost:3306/sigecu?useSSL=false
     username: root
 
-
-
-    password: martinez
+    password: alma
 
 
   jpa:

@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 import com.sigecu.entity.Preguntas;
 import com.sigecu.entity.RespuestaALMEntity;
 import com.sigecu.entity.Respuestas;
+import com.sigecu.exception.BusinessException;
 import com.sigecu.model.RespuestaALMModel;
 import com.sigecu.model.RespuestasModel;
 
@@ -34,19 +35,30 @@ public class RespuestasConverter {
 	private static final Log LOG = LogFactory.getLog(RespuestasConverter.class);
 
 	// entity -- to -- model
-	public RespuestasModel converterRespuestasToRespuestasModel(Respuestas respuestas) {
+	public RespuestasModel converterRespuestasToRespuestasModel(Respuestas respuestas) throws BusinessException {
+		
 		RespuestasModel respModel = new RespuestasModel();
+		try {
 		respModel.setIdRespuesta(respuestas.getIdRespuesta());
 		respModel.setrSolucion(respuestas.getrSolucion());
 		respModel.setPregunta(respuestas.getPreguntas());
 		respModel.setrRespuesta(respuestas.getrRespuesta());
 		LOG.info("Conversion correcta: RESPUESTA A RESPUESTA MODEL");
+		}
+		catch(Exception e) {
+			LOG.error("METODO NO EJECUTADO");
+			BusinessException be = new BusinessException();
+			be.printStackTrace();
+			be.setIdException(001);
+			be.setMsj("ERROR EN SERVICE: Convertir respuesta a respuestaModel");
+			throw be;
+		}
 
 		return respModel;
 
 	}
 	// entity -- to -- model
-		public RespuestasModel converterRespuestasToRespuestasModelAndAML(Respuestas respuestas) {
+		public RespuestasModel converterRespuestasToRespuestasModelAndAML(Respuestas respuestas) throws BusinessException{
 			
 			
 			RespuestasModel respModel = new RespuestasModel();
@@ -58,25 +70,44 @@ public class RespuestasConverter {
 //						respuestasAMLConverter.converterRespuestaALMToRespuestasModel(iterALM.next());
 //				respuestasALMModel.add(respALM);
 //			}
-			
+			try {
 			respModel.setIdRespuesta(respuestas.getIdRespuesta());
 			respModel.setrSolucion(respuestas.getrSolucion());
 			respModel.setPregunta(respuestas.getPreguntas());
 			respModel.setrRespuesta(respuestas.getrRespuesta());
 			//respModel.setRespuestaALMModel(respuestasALMModel);
 			LOG.info("Conversion correcta: RESPUESTA A RESPUESTA MODEL");
+			}
+			catch(Exception e) {
+				LOG.error("METODO NO EJECUTADO");
+				BusinessException be = new BusinessException();
+				be.printStackTrace();
+				be.setIdException(001);
+				be.setMsj("ERROR EN SERVICE: Convertir respuesta a respuestaModel");
+				throw be;
+			}
 
 			return respModel;
 
 		}
 
 	// model -- to -- entity
-	public Respuestas converterRespuestasModelToRespuestas(RespuestasModel respuestasModel, Preguntas preguntas) {
+	public Respuestas converterRespuestasModelToRespuestas(RespuestasModel respuestasModel, Preguntas preguntas) throws BusinessException {
 		Respuestas resp = new Respuestas();
+		try {
 		resp.setPreguntas(preguntas);
 		resp.setrRespuesta(respuestasModel.getrRespuesta());
 		resp.setrSolucion(respuestasModel.getrSolucion());
 		LOG.info("Conversion correcta: RESPUESTA MODEL A RESPUESTA");
+		}
+		catch(Exception e) {
+			LOG.error("METODO NO EJECUTADO");
+			BusinessException be=new BusinessException();
+			be.printStackTrace();
+			be.setIdException(001);
+			be.setMsj("ERROR EN SERVICE: Convertir respuestaModel a respuesta");
+			throw be;
+		}
 
 		return resp;
 	}

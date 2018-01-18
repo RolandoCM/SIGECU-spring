@@ -21,6 +21,7 @@ import com.sigecu.entity.Alumno;
 import com.sigecu.entity.Alumno_Has_Eventos;
 import com.sigecu.entity.Eventos;
 import com.sigecu.entity.Instructor;
+import com.sigecu.exception.BusinessException;
 import com.sigecu.model.AlumnoModel;
 import com.sigecu.model.EventosModel;
 import com.sigecu.repository.EventosRepository;
@@ -56,13 +57,18 @@ public class InstructorServiceImpl implements InstructorService {
 	 * @see com.sigecu.service.InstructorService#eventosPorInstructor(int)
 	 */
 	@Override
-	public List<EventosModel> eventosPorInstructor(int idInstructor) {
+	public List<EventosModel> eventosPorInstructor(int idInstructor)throws BusinessException{
 		Instructor instructor = instructorRepository.findByIdInstructor(idInstructor);
 		List<Eventos> eventosEntity = eventoRepository.findByInstructor(instructor);
 		List<EventosModel> eventosModel= new ArrayList<>();
+		try {
 		for(Eventos evento : eventosEntity) {
 			EventosModel eventoModel = eventosConverter.convertEventoToEentoModel(evento);
 			eventosModel.add(eventoModel);
+		}
+		}
+		catch(Exception e) {
+			
 		}
 		return eventosModel;
 	}

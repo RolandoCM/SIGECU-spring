@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 import com.sigecu.entity.Evaluaciones;
 import com.sigecu.entity.Preguntas;
 import com.sigecu.entity.Respuestas;
+import com.sigecu.exception.BusinessException;
 import com.sigecu.model.PreguntasModel;
 import com.sigecu.model.PreguntasRetroModel;
 import com.sigecu.model.RespuestasModel;
@@ -36,67 +37,122 @@ public class PreguntasConverter {
 	private static final Log LOG = LogFactory.getLog(PreguntasConverter.class);
 
 	// entity -- to -- model
-	public PreguntasModel converterPreguntasToPreguntasModel(Preguntas preguntas) {
+	public PreguntasModel converterPreguntasToPreguntasModel(Preguntas preguntas) throws BusinessException{
 		PreguntasModel preguntaModel = new PreguntasModel();
-		preguntaModel.setIdPregunta(preguntas.getIdPregunta());
-		preguntaModel.setpPregunta(preguntas.getpPregunta());
-		preguntaModel.setpDescripcion(preguntas.getpDescripcion());
-		preguntaModel.setEvaluacion(preguntas.getEvaluaciones());
-		preguntaModel.setPuntaje(preguntas.getpPuntaje());
-		LOG.info("Conversion correcta: Pregunta a PreguntaModel");
+		
+		try {
+			preguntaModel.setIdPregunta(preguntas.getIdPregunta());
+			preguntaModel.setpPregunta(preguntas.getpPregunta());
+			preguntaModel.setpDescripcion(preguntas.getpDescripcion());
+			preguntaModel.setEvaluacion(preguntas.getEvaluaciones());
+			preguntaModel.setPuntaje(preguntas.getpPuntaje());
+			LOG.info("Conversion correcta: Pregunta a PreguntaModel");
+		}
+		catch(Exception e) {
+			LOG.error("NO SE EJECUTO EL METODO");
+			BusinessException be = new BusinessException();
+			be.printStackTrace();
+			be.setIdException(001);
+			be.setMsj("ERROR EN SERVICE: Convertir pregunta a preguntaModel");
+			throw be;
+		}
+		
 		return preguntaModel;
 	}
 	/*
 	 * Convertir preguntas con respuesta tipo model agregado
 	 * */
-	public PreguntasModel converterPreguntasToPreguntasModelAndRespuestas(Preguntas preguntas) {
+	public PreguntasModel converterPreguntasToPreguntasModelAndRespuestas(Preguntas preguntas) throws BusinessException {
 		PreguntasModel preguntaModel = new PreguntasModel();
 		
 		List<RespuestasModel> respuestasModel = new ArrayList<>();
 		Iterator<Respuestas> iter = preguntas.getRespuestas().iterator();
+		try {
 		while(iter.hasNext()) {
 			RespuestasModel respuesta = respuestasConverter.converterRespuestasToRespuestasModelAndAML(iter.next());
 			respuestasModel.add(respuesta);
+	
+			preguntaModel.setIdPregunta(preguntas.getIdPregunta());
+			preguntaModel.setpPregunta(preguntas.getpPregunta());
+			preguntaModel.setpDescripcion(preguntas.getpDescripcion());
+			preguntaModel.setEvaluacion(preguntas.getEvaluaciones());
+			preguntaModel.setPuntaje(preguntas.getpPuntaje());
+			preguntaModel.setRespuestasModel(respuestasModel);
+			LOG.info("Conversion correcta: Pregunta a PreguntaModel");
 		}
 		
-		preguntaModel.setIdPregunta(preguntas.getIdPregunta());
-		preguntaModel.setpPregunta(preguntas.getpPregunta());
-		preguntaModel.setpDescripcion(preguntas.getpDescripcion());
-		preguntaModel.setEvaluacion(preguntas.getEvaluaciones());
-		preguntaModel.setPuntaje(preguntas.getpPuntaje());
-		preguntaModel.setRespuestasModel(respuestasModel);
-		LOG.info("Conversion correcta: Pregunta a PreguntaModel");
-		return preguntaModel;
+		}
+		
+		catch(Exception e) {
+			LOG.error("NO SE EJECUTO EL METODO");
+			BusinessException be = new BusinessException();
+			be.printStackTrace();
+			be.setIdException(001);
+			be.setMsj("ERROR EN SERVICE: Convertir preguntas con respuestaModel");
+			throw be;
+		
 	}
+	
+		return preguntaModel;
+		
+}
 	
 	
 	/*
 	 * Convertir preguntas con respuesta tipo model agregado para retroalimentacion
 	 * */
-	public PreguntasRetroModel converterPreguntasToPreguntasModelAndRespuestasRetro(Preguntas preguntas, int correcto) {
+	public PreguntasRetroModel converterPreguntasToPreguntasModelAndRespuestasRetro(Preguntas preguntas, int correcto) throws BusinessException {
 		PreguntasRetroModel preguntaModel = new PreguntasRetroModel();
 		
 		List<RespuestasModel> respuestasModel = new ArrayList<>();
 		Iterator<Respuestas> iter = preguntas.getRespuestas().iterator();
+		
+		try {
 		while(iter.hasNext()) {
 			RespuestasModel respuesta = respuestasConverter.converterRespuestasToRespuestasModelAndAML(iter.next());
 			respuestasModel.add(respuesta);
+			
+			preguntaModel.setIdPregunta(preguntas.getIdPregunta());
+			preguntaModel.setPreguntaEnun(preguntas.getpPregunta());
+			preguntaModel.setDescripcion(preguntas.getpDescripcion());
+			preguntaModel.setRespuestasModel(respuestasModel);
+			preguntaModel.setCorrecta(correcto);
 		}
-		preguntaModel.setIdPregunta(preguntas.getIdPregunta());
-		preguntaModel.setPreguntaEnun(preguntas.getpPregunta());
-		preguntaModel.setDescripcion(preguntas.getpDescripcion());
-		preguntaModel.setRespuestasModel(respuestasModel);
-		preguntaModel.setCorrecta(correcto);
+		}
+		catch(Exception e) {
+			LOG.error("NO SE EJECUTO EL METODO");
+			BusinessException be = new BusinessException();
+			be.printStackTrace();
+			be.setIdException(001);
+			be.setMsj("ERROR EN SERVICE: Convertir preguntas con respuestaModel para retroalimentacion");
+			throw be;
+		}
+		
+		
 		return preguntaModel;
 	}
 
 	// model -- to -- entity
-	public Preguntas converterPreguntaModelToPreguntas(PreguntasModel preguntaModel, Evaluaciones eval) {
+	public Preguntas converterPreguntaModelToPreguntas(PreguntasModel preguntaModel, Evaluaciones eval) throws BusinessException {
 		Preguntas pregunta = new Preguntas();
-		pregunta.setpPregunta(preguntaModel.getpPregunta());
-		pregunta.setpPuntaje(preguntaModel.getPuntaje());
-		pregunta.setpDescripcion(preguntaModel.getpDescripcion());
-		pregunta.setEvaluaciones(eval);
+		
+		try {
+			pregunta.setpPregunta(preguntaModel.getpPregunta());
+			pregunta.setpPuntaje(preguntaModel.getPuntaje());
+			pregunta.setpDescripcion(preguntaModel.getpDescripcion());
+			pregunta.setEvaluaciones(eval);
+			
+		}
+		catch(Exception e) {
+			LOG.error("NO SE EJECUTO EL METODO");
+			BusinessException be = new BusinessException();
+			be.printStackTrace();
+			be.setIdException(001);
+			be.setMsj("ERROR EN CONVERTER: Convertir preguntaModel a pregunta");
+			throw be;
+			
+		}
+		
 		return pregunta;
 	}
 }

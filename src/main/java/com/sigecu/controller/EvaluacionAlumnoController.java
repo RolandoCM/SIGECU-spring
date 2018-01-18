@@ -49,8 +49,8 @@ public class EvaluacionAlumnoController {
 	private DefineUsuarioService defineUsuario;
 
 	@GetMapping("/mostrarExamen")
-	public ModelAndView mostrarExamenN(@RequestParam(name = "idEvento", required = false) int idEvento,
-			@RequestParam(name = "idEvaluacion", required = false) int idEvaluacion, Model model) {
+	public ModelAndView mostrarExamenN(@RequestParam(name = "idEvento", required = true) int idEvento,
+			@RequestParam(name = "idEvaluacion", required = false) int idEvaluacion, Model model) throws BusinessException{
 		VistaRespuestasAlumno respuestaAlumno = new VistaRespuestasAlumno();
 
 		ModelAndView mav = new ModelAndView();
@@ -106,7 +106,7 @@ public class EvaluacionAlumnoController {
 			@RequestParam(name = "idEvaluacion", required = false) int idEvaluacion,
 			@RequestParam(name = "asignaExamen", required = true) int idAsignaExamen,
 			@RequestParam(name = "idPregunta", required = true) int idPregunta,
-			@ModelAttribute(name = "respuestaAlumno") VistaRespuestasAlumno respuestaAlumno) {
+			@ModelAttribute(name = "respuestaAlumno") VistaRespuestasAlumno respuestaAlumno) throws BusinessException{
 		LOG.info("EXAMEN GUARDADO: " + respuestaAlumno.toString() + " ASIGNA EXAMEN =");
 		evaluacionAlumnoService.guardarRespuestas(respuestaAlumno.getIdRespuesta(), idAsignaExamen, idPregunta);
 		
@@ -120,7 +120,7 @@ public class EvaluacionAlumnoController {
 			@RequestParam(name = "idEvaluacion", required = false) int idEvaluacion,
 			@RequestParam(name = "asignaExamen", required = true) int idAsignaExamen,
 			@RequestParam(name = "idPregunta", required = true) int idPregunta,
-			@ModelAttribute(name = "respuestaAlumno") VistaRespuestasAlumno respuestaAlumno) {
+			@ModelAttribute(name = "respuestaAlumno") VistaRespuestasAlumno respuestaAlumno) throws BusinessException {
 		LOG.info("EXAMEN GUARDADO: " + respuestaAlumno.toString() + " ASIGNA EXAMEN ="+ idAsignaExamen);
 		evaluacionAlumnoService.guardarRespuestas(respuestaAlumno.getIdRespuesta(), idAsignaExamen, idPregunta);
 		evaluacionAlumnoService.marcarExamenRealizado(idAsignaExamen);

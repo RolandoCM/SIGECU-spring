@@ -68,7 +68,7 @@ public class PreguntasErradasController {
 
 	@GetMapping("/evaluacion")
 	public ModelAndView preguntasErradas(@RequestParam(name="idEvento", required=false)int idEvento,
-			@RequestParam(name = "idEvaluacion",required = false) int idEvaluacion) {
+			@RequestParam(name = "idEvaluacion",required = false) int idEvaluacion) throws BusinessException {
 		ModelAndView mav = new ModelAndView();
 		user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		alumnoModel =defineUsuario.buscarUsuarioAlumno(user.getUsername());
@@ -100,7 +100,6 @@ public class PreguntasErradasController {
 			mav.addObject("idEvento", idEvento);
 			return mav;
 		}
-		
 		
 		
 	}

@@ -16,6 +16,7 @@ import com.sigecu.converter.EventosConverter;
 import com.sigecu.entity.Cursos;
 import com.sigecu.entity.Evaluaciones;
 import com.sigecu.entity.Eventos;
+import com.sigecu.exception.BusinessException;
 import com.sigecu.model.AlumnoModel;
 import com.sigecu.model.EvaluacionesModel;
 import com.sigecu.model.EventosModel;
@@ -57,14 +58,19 @@ public class EventoAlumnoImpl implements eventoAlumnoService{
     private EvaluacionConverter evaluacionesConverter;
 
 	@Override
-	public List<EventosModel> listAllEventosAl(int idAlumno) {
+	public List<EventosModel> listAllEventosAl(int idAlumno) throws BusinessException{
 		List<Eventos> eventos = queryEventoAlumno.findAllEventosAlumnosById(idAlumno);
 		List<EventosModel> eventosModel=new ArrayList<EventosModel>();
 		
+		try {
 		for(Eventos evento: eventos) {
 			eventosModel.add(eventosConverter.convertEventoToEentoModel(evento));
 		}
 		LOG.info("Eventos" + idAlumno);
+		}
+		catch(Exception e) {
+			
+		}
 		
 		//LOG.info("FECHA" + eventosModel.get(1).geteFechaInicio());
 		return eventosModel;
@@ -80,7 +86,7 @@ public class EventoAlumnoImpl implements eventoAlumnoService{
 	 * @see com.sigecu.service.eventoAlumnoService#listAllExamen(int, int)
 	 */
 	@Override
-	public List<EvaluacionesModel> listAllExamen(int idAlumno, int idEvento) {
+	public List<EvaluacionesModel> listAllExamen(int idAlumno, int idEvento) throws BusinessException{
 		Eventos evento = queryEventoAlumno.findAllEventosByID(idEvento);
 		Cursos curso = evento.getCursosEvento();
 		List<Evaluaciones> listEvaluaciones = queryEvaluacion.findAllExamenesById(curso.getIdCurso());

@@ -20,7 +20,7 @@ public class CursoModel {
 	
 	public CursoModel() {
 	}
-	public CursoModel(int idCurso, String cNombre, String cDescripcion) {
+	public CursoModel(int idCurso, String cNombre, String cDescripcion){
 		this.idCurso=idCurso;
 		this.cNombre=cNombre;
 		this.cDescripcion=cDescripcion;

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.sigecu.model.EventosModel;
 import com.sigecu.entity.Eventos;
+import com.sigecu.exception.BusinessException;
 
 @Component("eventosConverter")
 public class EventosConverter {
@@ -13,8 +14,10 @@ public class EventosConverter {
 
 	//Entidad a Modelo
 	
-	public EventosModel convertEventoToEentoModel(Eventos evento) {
+	public EventosModel convertEventoToEentoModel(Eventos evento)  throws BusinessException{
 		 EventosModel eventoModel=new EventosModel();
+		 
+		 try {
 		 eventoModel.setIdevento(evento.getIdEvento());
 		 eventoModel.seteDescripcion(evento.geteDescripcion());
 		 eventoModel.seteFechaInicio(evento.geteFechaInicio());
@@ -26,15 +29,25 @@ public class EventosConverter {
 		 eventoModel.seteEstatus(evento.geteStatus());
 		 eventoModel.setCurso(evento.getCursosEvento());
 		 eventoModel.setInstructor(evento.getInstructor());
-		 
+		 }
+		 catch(Exception e) {
+			 LOG.error("METODO NO EJECUTADO");
+			 BusinessException be = new BusinessException();
+			 be.printStackTrace();
+			 be.setIdException(001);
+			 be.setMsj("ERROR EN SERVICE: Convertir evento a eventoModel");
+			 throw be;
+		 }
 		 return eventoModel;
 	}
 	
 	
 	//Modelo a Entidad
 	
-	public Eventos convertEventoModelToEvento (EventosModel evento) {
+	public Eventos convertEventoModelToEvento (EventosModel evento) throws BusinessException {
 		Eventos even=new Eventos() ;
+		
+		try {
 		even.setIdEvento(evento.getIdevento());
 		even.seteDescripcion(evento.geteDescripcion());
 		even.seteFechaInicio(evento.geteFechaInicio());
@@ -46,6 +59,15 @@ public class EventosConverter {
 		even.seteStatus(evento.geteEstatus());
 		even.setInstructor(evento.getInstructor());
 		even.setCursosEvento(evento.getCurso());
+		}
+		catch(Exception e) {
+			LOG.error("METODO NO EJECUTADO");
+			BusinessException be = new BusinessException();
+			be.printStackTrace();
+			be.setIdException(001);
+			be.setMsj("ERROR EN SERVICIO: Convertir eventoModel a evento");
+			throw be;
+		}
 		return even;
 		
 	}
