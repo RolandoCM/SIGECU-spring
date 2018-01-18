@@ -40,12 +40,23 @@ public class EventoAlumnoController {
 	@GetMapping("/listarEventos")
 	public ModelAndView mostrarEventos() throws BusinessException{
 		ModelAndView mav=new ModelAndView(ViewConstant.EVENTOS_ALUMNO);
+		
+		try {
 		user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		alumnoModel =defineUsuario.buscarUsuarioAlumno(user.getUsername());
 		LOG.info(user.getAuthorities());
 		mav.addObject("user", alumnoModel );
 		mav.addObject("listarEventos", eventoAlumnoService.listAllEventosAl(alumnoModel.getId_alumno()));
-		
+		}
+		catch(Exception e) {
+			LOG.error("METODO NO EJECUTADO");
+			BusinessException be = new BusinessException();
+			be.printStackTrace();
+			be.setIdException(001);
+			be.setMsj("ERROR EN SERVICE: Alumno no encontrado");
+			throw be;
+			
+		}
 		return mav;
 		
 	}
@@ -54,10 +65,21 @@ public class EventoAlumnoController {
 		user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		alumnoModel =defineUsuario.buscarUsuarioAlumno(user.getUsername());
 		ModelAndView mav = new ModelAndView(ViewConstant.EXAMENES_ALUMNO);
+		
+		try {
 		mav.addObject("listExamen", eventoAlumnoService.listAllExamen(alumnoModel.getId_alumno(), idEvento));
 		mav.addObject("user", alumnoModel);
 		mav.addObject("idEvento", idEvento);
 		mav.addObject("status", eventoAlumnoService.validarcertificado(alumnoModel.getId_alumno(), idEvento));
+		}
+		catch(Exception e) {
+			LOG.error("METODO NO EJECUTADO");
+			BusinessException be = new BusinessException();
+			be.setIdException(001);
+			be.setMsj("ERROR EN SERVICE: Examen NO asignado");
+			throw be;
+		}
+		
 		return mav;
 	}
 }
