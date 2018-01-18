@@ -57,8 +57,8 @@
 
 <body class="theme-red">
 	<section th:include="fragment/menuadmin"></section>
-	
-	
+
+
 	<section class="content">
 		<div class="container-fluid">
 
@@ -70,117 +70,209 @@
 
 						</div>
 						<div class="body">
-						<div th:if="${param.idinsetado==1}" class="alert bg-green alert-dismissible" role="alert" >
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                               El Instructor se Inserto
-                            </div>
-						
-							<form th:action="@{/insert/addInstructor}" th:object="${instructorForm}" method="POST">
+							<div th:if="${param.idinsetado==1}"
+								class="alert bg-green alert-dismissible" role="alert">
+								<button type="button" class="close" data-dismiss="alert"
+									aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
+								El Instructor se Inserto
+							</div>
+
+							<form th:action="@{/insert/addInstructor}"
+								th:object="${eventosForm}" method="POST">
 								<div class="demo-masked-input">
 									<div class="row clearfix">
 										<div class="col-md-6">
-											<b>Nombre</b>
+											<b>Curso</b>
+											<div class="input-group">
+												<span class="input-group-addon"> <i
+													class="material-icons">person_pin</i>
+												</span>
+												
+												
+													<select class="form-control show-tick" tabindex="-98"
+														th:value="${curso}" th:field="*{curso}"
+														required="required">
+														<option value="">-- Please select --</option>
+														<option th:each="listacurso : ${listaCurso}"
+															th:value="${listacurso.idCurso}"
+															th:text="${listacurso.cNombre}"></option>
+
+													</select>
+												
+												
+											</div>
+										</div>
+										<div class="col-md-6">
+											<b>Instructor</b>
+											<div class="input-group">
+												<span class="input-group-addon"> <i
+													class="material-icons">person_pin</i>
+												</span>
+												
+												
+													<select class="form-control show-tick" tabindex="-98"
+														th:value="${instructor}" th:field="*{instructor}"
+														required="required">
+														<option value="">-- Please select --</option>
+														<option th:each="listaInstru : ${listaInstructorr}"
+															th:value="${listaInstru.id}"
+															th:text="${listaInstru.iNombre}"></option>
+
+													</select>
+												
+												
+											</div>
+										</div>
+										<div class="col-md-6">
+											<b>Descripcion</b>
 											<div class="input-group">
 												<span class="input-group-addon"> <i
 													class="material-icons">person_pin</i>
 												</span>
 												<div class="form-line">
-													<input type="text" class="form-control" id="nombre"
-														name="nombre" placeholder="Nombre del Instructor"
-														th:value="${iNombre}" th:field="*{iNombre}"
+													<input type="text" class="form-control" id="descripcion"
+														name="nombre" placeholder="Descripcion"
+														th:value="${eDescripcion}" th:field="*{eDescripcion}"
 														required="required" />
 												</div>
 											</div>
 										</div>
 										<div class="col-md-6">
-											<b>Apellido Paterno</b>
+											<b>Fecha Inicio</b>
 											<div class="input-group">
 												<span class="input-group-addon"> <i
 													class="material-icons">person_pin</i>
 												</span>
 												<div class="form-line">
-													<input type="text" class="form-control"
-														placeholder="Apellido Paterno" name="apellioPat"
-														th:value="${iPaterno}" th:field="*{iPaterno}"
+													<input type="date" class="form-control"
+														placeholder="Apellido Paterno" name="fechainicio"
+														th:value="${eFechaInicio}" th:field="*{eFechaInicio}"
 														required="required" />
 												</div>
 											</div>
 										</div>
 										<div class="col-md-6">
-											<b>Apellido Materno</b>
+											<b>Fecha Termino</b>
 											<div class="input-group">
 												<span class="input-group-addon"> <i
 													class="material-icons">person_pin</i>
 												</span>
 												<div class="form-line">
-													<input type="text" class="form-control"
-														placeholder="Apellido Materno" name="apellidoMat"
-														th:value="${iMaterno}" th:field="*{iMaterno}"
+													<input type="date" class="form-control"
+														placeholder="Apellido Materno" name="fechatermino"
+														th:value="${eFechaTermino}" th:field="*{eFechaTermino}"
 														required="required" />
 												</div>
 											</div>
 										</div>
+										
 										<div class="col-md-6">
-											<b>Telefono</b>
-											<div class="input-group">
-												<span class="input-group-addon"> <i
-													class="material-icons">contact_phone</i>
-												</span>
-												<div class="form-line">
-													<input type="text" class="form-control mobile-phone-number"
-														placeholder="Ex: +00 (000) 000-00-00" name="telefono"
-														th:value="${iTelefono}" th:field="*{iTelefono}"
-														required="required" />
-												</div>
-											</div>
-										</div>
-										<div class="col-md-6">
-											<b>Email </b>
+											<b>Programa </b>
 											<div class="input-group">
 												<span class="input-group-addon"> <i
 													class="material-icons">email</i>
 												</span>
 												<div class="form-line">
-													<input type="text" class="form-control email"
-														placeholder="Ex: example@example.com" name="email"
-														th:value="${iEmail}" th:field="*{iEmail}"
-														required="required" />
+													<input type="text" class="form-control " placeholder=""
+														name="programa" th:value="${eprograma}"
+														th:field="*{ePrograma}" required="required" />
 												</div>
 											</div>
 										</div>
 										<div class="col-md-6">
-											<b>Carrera</b>
+											<b>Horario</b>
 											<div class="input-group">
 												<span class="input-group-addon"> <i
 													class="material-icons">school</i>
 												</span>
 												<div class="form-line">
-													<input type="text" class="form-control"
-														placeholder="Carrera/Especialidad" name="carrera"
-														th:value="${carrera}" th:field="*{carrera}"
-														required="required" />
+													<input type="datetime time12" class="form-control"
+														placeholder="" name="horario" th:value="${eHorario}"
+														th:field="*{eHorario}" required="required" />
 												</div>
 											</div>
 										</div>
-										<div class="col-md-12">
-											<b>Direccion</b>
+										<div class="col-md-6">
+											<b>Lugar</b>
 											<div class="input-group">
 												<span class="input-group-addon"> <i
 													class="material-icons">directions</i>
 												</span>
 												<div class="form-line">
-													<input type="text" class="form-control"
-														placeholder="Direccion" name="carrera"
-														th:value="${iDireccion}" th:field="*{iDireccion}"
-														required="required" />
+													<select class="form-control show-tick" tabindex="-98"
+														th:value="${lugar_idlugar}" th:field="*{lugar_idlugar}"
+														required="required">
+														<option value="1">Queretaro</option>
+														<option value="2">Mexico</option>
+														<option value="3">Puebla</option>
+													</select>
+
 												</div>
 											</div>
 										</div>
-									
-										
+										<div class="col-md-6">
+											<b>Templetes</b>
+											<div class="input-group">
+												<span class="input-group-addon"> <i
+													class="material-icons">directions</i>
+												</span>
+												<div class="form-line">
+													<select class="form-control show-tick" tabindex="-98"
+														th:value="${t_idtempletes}" th:field="*{t_idtempletes}"
+														required="required">
+														<option value="1">Herradura</option>
+														<option value="2">Auditorio</option>
+														<option value="3">Salon</option>
+													</select>
+
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<b>Templetes</b>
+											<div class="input-group">
+												<span class="input-group-addon"> <i
+													class="material-icons">directions</i>
+												</span>
+												<div class="input-group spinner" data-trigger="spinner">
+													<div class="form-line">
+														<input type="text" class="form-control text-center"
+															value="1" data-rule="quantity" th:value="${eCapacidad}" th:field="*{eCapacidad}"
+														required="required"/>
+													</div>
+													<span class="input-group-addon"> <a
+														href="javascript:;" class="spin-up" data-spin="up"><i
+															class="glyphicon glyphicon-chevron-up"></i></a> <a
+														href="javascript:;" class="spin-down" data-spin="down"><i
+															class="glyphicon glyphicon-chevron-down"></i></a>
+													</span>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<b>Tipo de Evento</b>
+											<div class="input-group">
+												<span class="input-group-addon"> <i
+													class="material-icons"> laptop</i>
+												</span>
+												<div class="form-group">
+													<input type="radio" name="gender" id="si" class="with-gap"
+														value="1" th:field="*{eTipo}" required="required" />
+													<label for="si">Publico</label> <input type="radio"
+														name="gender" id="no" class="with-gap" value="0"
+														th:field="*{eTipo}" required="required" /> <label
+														for="no" class="m-l-20">Privado</label>
+												</div>
+											</div>
+										</div>
+
+
 										<div class="modal-footer">
 											<button type="submit" class="btn btn-primary waves-effect">GUARDAR</button>
-											<button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">CERRAR</button>
+											<button type="button" class="btn btn-danger waves-effect"
+												data-dismiss="modal">CERRAR</button>
 										</div>
 									</div>
 								</div>

@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.sigecu.constant.ViewConstant;
 import com.sigecu.entity.Users;
 import com.sigecu.model.AlumnoModel;
+import com.sigecu.model.EventosModel;
 import com.sigecu.model.InstructorModel;
 import com.sigecu.service.AdminAlumnInstrEveService;
 
@@ -57,9 +58,24 @@ public class AdminAlumInstEventController {
 		Users usuario = new Users();
 		InstructorModel inst = new InstructorModel();
 		mav.addObject("username", username);
+		
 		model.addAttribute("usuarioForm", usuario);
 		model.addAttribute("instructorForm",inst);
 		return mav;
+	}
+	
+	@GetMapping("/eventosInsert")
+	public ModelAndView insertEventos(Model Model) {
+		ModelAndView mav = new ModelAndView(ViewConstant.EVENTOS_FORM);
+		user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		username = user.getUsername();
+		Users usuario = new Users();
+		EventosModel evemod=new EventosModel();
+		mav.addObject("username", username);
+		mav.addObject("listaCurso",adminser.listaCursos());
+		mav.addObject("listaInstructorr",adminser.listaIntructores());
+	    Model.addAttribute("eventosForm",evemod);
+	    return mav;
 	}
 	
 	@PostMapping("/addAlumno")
@@ -78,4 +94,9 @@ public class AdminAlumInstEventController {
 		return "redirect:/insert/instructor?idinsetado=1";
 	}
 
+	@PostMapping("/  ")
+	public String addInstructor(@ModelAttribute(name = "eventoModel") EventosModel evenModel) {
+		return username;
+		
+	}
 }

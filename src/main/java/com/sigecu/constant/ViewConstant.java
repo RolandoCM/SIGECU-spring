@@ -53,4 +53,6 @@ public class ViewConstant {
 	
 	//instructor
 	public static final String INSTRUCTOR_FORM = "instructor";
+	//Insertar Eventos
+	public static final String EVENTOS_FORM = "EventosInsert";
 }
