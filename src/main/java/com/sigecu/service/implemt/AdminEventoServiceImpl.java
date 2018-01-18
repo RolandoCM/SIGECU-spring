@@ -12,6 +12,7 @@ import com.sigecu.converter.CursosConverter;
 import com.sigecu.converter.EventosConverter;
 import com.sigecu.converter.InstructorConverter;
 import com.sigecu.entity.Cursos;
+import com.sigecu.entity.Eventos;
 import com.sigecu.entity.Instructor;
 import com.sigecu.model.CursoModel;
 import com.sigecu.model.EventosModel;
@@ -81,6 +82,10 @@ public class AdminEventoServiceImpl implements AdminEventoService {
 		Cursos curso = cursoRepository.findByIdCurso(idCurso);
 		Instructor instructor= instructorRepository.findByIdInstructor(idInstructor);		
 		Eventos even=eventosConverter.convertEventoModelToEvento(eventoModel, curso, instructor);
+		eventosRepository.saveAndFlush(even);
+		LOG.info("EVENTO REGISTRADO");
+		
+		
 		
 		
 	}
