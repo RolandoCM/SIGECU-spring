@@ -26,6 +26,7 @@ public class ViewConstant {
 	public static final String NO_RETROALIMENTACION = "examen/warningRetroalimentacion";
 	
 	public static final String ADMIN = "redirect:/adminExamen/listaCursos"; // vista para admin inicio
+	public static final String INSCRIBE_ALUMNO = "inscribirAlumnos";
 
 	public static final String LISTAR_EXAMEN = "adminExamen";
 	public static final String NUEVO_EXAMEN = "NuevoExamen";

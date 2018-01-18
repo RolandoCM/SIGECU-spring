@@ -155,6 +155,15 @@ public class AlumnoModel {
 	 */
 	public void setA_status(String a_status) {
 		this.a_status = a_status;
+	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "AlumnoModel [id_alumno=" + id_alumno + ", a_nombre=" + a_nombre + ", a_paterno=" + a_paterno
+				+ ", a_materno=" + a_materno + ", a_telefono=" + a_telefono + ", a_email=" + a_email + ", a_carrera="
+				+ a_carrera + ", a_notebook=" + a_notebook + ", a_status=" + a_status + "]";
 	}	
 	
 }
