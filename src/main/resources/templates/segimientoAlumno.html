@@ -43,7 +43,7 @@
 			<!-- Basic Example -->
 			<div class="row clearfix">
 
-				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
 					<div class="card">
 						<div class="header bg-cyan">
 							<ul class="header-dropdown m-r--5">
@@ -120,33 +120,33 @@
 														<div class="row clearfix">
 															<input th:field="*{idasignaExamen}"
 																th:value="idAsignaExamen" type="hidden" />
-															<div class="col-md-3">
-																<b>Date</b>
+															
+															<div class="col-md-6">
+																<b>Fecha Inicio</b>
 																<div class="input-group">
 																	<span class="input-group-addon"> <i
 																		class="material-icons">date_range</i>
 																	</span>
 																	<div class="form-line">
 																		<input class="form-control date"
-																			placeholder="Ex: 30/07/2016" type="text"
+																			placeholder="Ex: 30/07/2016" type="date"
 																			th:field="*{fechaInicio}" />
 																	</div>
 																</div>
 															</div>
-
 															<div class="col-md-6">
-																<label for="title">Fecha Fin</label>
-																<div class="form-group">
+																<b>Fecha Fin</b>
+																<div class="input-group">
+																	<span class="input-group-addon"> <i
+																		class="material-icons">date_range</i>
+																	</span>
 																	<div class="form-line">
-																		<input type="text" id="pregunta" class="form-control"
-																			placeholder="Escribe respuesta"
-																			th:field="*{fechaFin}" required=""
-																			aria-required="true" />
+																		<input class="form-control date"
+																			placeholder="Ex: 30/07/2016" type="date"
+																			th:field="*{fechaFin}" aria-required="true"/>
 																	</div>
 																</div>
 															</div>
-
-
 															<div class="col-md-6">
 																<label for="title">Asignado</label>
 																<div class="input-group form-group">
@@ -189,41 +189,42 @@
 	<script th:src="@{/plugins/bootstrap/js/bootstrap.js}"></script>
 
 	<!-- Select Plugin Js -->
-	<!--script src="../../plugins/bootstrap-select/js/bootstrap-select.js"></script-->
+	<script th:src="@{/plugins/bootstrap-select/js/bootstrap-select.js}"></script>
 
 	<!-- Slimscroll Plugin Js -->
 	<script th:src="@{/plugins/jquery-slimscroll/jquery.slimscroll.js}"></script>
 
+	<!-- Bootstrap Colorpicker Js -->
+	<script
+		th:src="@{/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js}"></script>
+
+	<!-- Dropzone Plugin Js -->
+	<script th:src="@{/plugins/dropzone/dropzone.js}"></script>
+
+	<!-- Input Mask Plugin Js -->
+	<script
+		th:src="@{/plugins/jquery-inputmask/jquery.inputmask.bundle.js}"></script>
+
+	<!-- Multi Select Plugin Js -->
+	<script th:src="@{/plugins/multi-select/js/jquery.multi-select.js}"></script>
+
+	<!-- Jquery Spinner Plugin Js -->
+	<script th:src="@{/plugins/jquery-spinner/js/jquery.spinner.js}"></script>
+
+	<!-- Bootstrap Tags Input Plugin Js -->
+	<script th:src="@{/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js}"></script>
+
+	<!-- noUISlider Plugin Js -->
+	<script th:src="@{/plugins/nouislider/nouislider.js}"></script>
+
 	<!-- Waves Effect Plugin Js -->
 	<script th:src="@{/plugins/node-waves/waves.js}"></script>
 
-	<!-- Autosize Plugin Js -->
-	<script th:src="@{/plugins/autosize/autosize.js}"></script>
-
-	<!-- Moment Plugin Js -->
-	<script th:src="@{/plugins/momentjs/moment.js}"></script>
-
-	<!-- Bootstrap Material Datetime Picker Plugin Js -->
-	<script
-		th:src="@{/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js}"></script>
-
-	<!-- Jquery Validation Plugin Css -->
-	<script th:src="@{/plugins/jquery-validation/jquery.validate.js}"></script>
-
 	<!-- Custom Js -->
 	<script th:src="@{/js/admin.js}"></script>
+	<script th:src="@{/js/pages/forms/advanced-form-elements.js}"></script>
 
 	<!-- Demo Js -->
 	<script th:src="@{/js/demo.js}"></script>
-	<script type="text/javascript">
-		$(function() {
-			$('.timepicker').bootstrapMaterialDatePicker({
-				format : 'HH:mm',
-				clearButton : true,
-				date : false
-			});
-
-		});
-	</script>
 </body>
 </html>

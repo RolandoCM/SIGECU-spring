@@ -75,7 +75,10 @@
 									</a></li>
 									<li><a th:href="@{/ExamenErrado/ExamenErrado1(idEvento=${idEvento},idEvaluacion=${eva.idevaluacion})}"><span>Corregir Examen</span> </a></li>
 									<li th:if="${status}==1"><a th:href="@{/alumno/certificado?idEvento=__${idEvento}__}" target="_blank"><span>Generar certificado</span></a></li>
-									
+									<!--  
+									<li><a th:href="@{/calificaciones/mostrarCalificaciones(idEvaluacion=${eva.idevaluacion},idAsignaExamen=${asignaExamen.idasignaExamen})}">
+									<span>Preguntas Erradas</span>
+									</a></li>-->
 								</ul>
 							</div>
 						</div>
