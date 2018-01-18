@@ -91,8 +91,10 @@ public class PreguntasErradasController {
 			e.printStackTrace();
 		}
 		if(mostrarRetroalimentacion) {
+			LOG.info("COMIENZA RETROALIMENTACION");
 			mav.setViewName(ViewConstant.PREGUNTAS_ERRADAS);
 			mav.addObject("listaPreguntas", preguntasErradasConService.listarPregunrasByExam(idEvaluacion, asignaExamen.getIdasignaExamen()));
+			LOG.info("RETROALIMENTACION LISTA PREGUNTAS");
 			mav.addObject("user", alumnoModel );
 			return mav;
 		}else {

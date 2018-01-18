@@ -16,6 +16,7 @@ import com.sigecu.converter.CursosConverter;
 import com.sigecu.converter.EvaluacionConverter;
 import com.sigecu.converter.PreguntasConverter;
 import com.sigecu.converter.RespuestasConverter;
+import com.sigecu.entity.AsignaExamenEntity;
 import com.sigecu.entity.Cursos;
 import com.sigecu.entity.Evaluaciones;
 import com.sigecu.entity.Preguntas;
@@ -27,6 +28,7 @@ import com.sigecu.model.PreguntasModel;
 import com.sigecu.model.PreguntasRetroModel;
 import com.sigecu.model.RespuestaALMModel;
 import com.sigecu.model.RespuestasModel;
+import com.sigecu.repository.AsignaExamenRepository;
 import com.sigecu.repository.CursosRepository;
 import com.sigecu.repository.QueryEvaluacion;
 import com.sigecu.repository.RespuestasRepository;
@@ -73,6 +75,10 @@ public class PreguntasErradasConServiceImplement implements PreguntasErradasConS
 	@Qualifier("respuestasALMRepository")
 	private respuestaALMRepository respuestaALMRepository;
 	
+	@Autowired
+	@Qualifier("asignaExamenRepository")
+	private AsignaExamenRepository asignaExamenRepository;
+	
 	@Override
 	public List<Respuestas> listarPreguntasHerradas() {
 		// TODO Auto-generated method stub
@@ -105,25 +111,26 @@ public class PreguntasErradasConServiceImplement implements PreguntasErradasConS
 		List<Preguntas> listPreguntas = queryEvaluacion.findAllPreguntasById(idEvaluacion);
 		List<Preguntas> listPreguntasErr = queryEvaluacion.findPreguntasCorrectaRetro(idEvaluacion, idAsignaExamen);
 		List<PreguntasRetroModel> preguntasRetroModel = new ArrayList<PreguntasRetroModel>();
+		AsignaExamenEntity asignaExamen = asignaExamenRepository.findByIdasignaExamen(idAsignaExamen);
 		PreguntasRetroModel preguntaRetro = new PreguntasRetroModel();
-
 		for (Preguntas pregunta : listPreguntas) {
 			if(!listPreguntasErr.contains(pregunta)) {
 				preguntaRetro = preguntasConverter.converterPreguntasToPreguntasModelAndRespuestasRetro(pregunta, 0);
-				
-				RespuestaALMEntity rHA =respuestaALMRepository.findByIdPregunta(pregunta.getIdPregunta());
+				RespuestaALMEntity rHA =respuestaALMRepository.findByIdPreguntaAndAsignaExamen(pregunta.getIdPregunta(), asignaExamen);
+				LOG.info("AHA");
 				preguntaRetro.setSeleccionada(rHA.getIdRespuesta());
+				LOG.info("AHA");
 				preguntasRetroModel.add( preguntaRetro);
 				LOG.info("ES INCORRECTA : "+pregunta.getIdPregunta()+"...............");
 			}
 			else {
 				preguntaRetro = preguntasConverter.converterPreguntasToPreguntasModelAndRespuestasRetro(pregunta, 1);
-				
-				RespuestaALMEntity rHA =respuestaALMRepository.findByIdPregunta(pregunta.getIdPregunta());
+				RespuestaALMEntity rHA =respuestaALMRepository.findByIdPreguntaAndAsignaExamen(pregunta.getIdPregunta(), asignaExamen);///
 				preguntaRetro.setSeleccionada(rHA.getIdRespuesta());
 				preguntasRetroModel.add( preguntaRetro);
 				LOG.info("ES CORRECTA : "+pregunta.getIdPregunta()+"...............");
 			}
+
 		}
 		LOG.info("TOTAL: PREGUNTAS : "+ listPreguntas.size());
 		//LOG.info(preguntasModel.iterator().next().getRespuestasModel().iterator().next().getPregunta());
