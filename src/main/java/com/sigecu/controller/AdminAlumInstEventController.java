@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.sigecu.constant.ViewConstant;
 import com.sigecu.entity.Users;
 import com.sigecu.model.AlumnoModel;
+import com.sigecu.model.InstructorModel;
 import com.sigecu.service.AdminAlumnInstrEveService;
 
 @Controller
@@ -48,6 +49,19 @@ public class AdminAlumInstEventController {
 		return mav;
 	}
 	
+	@GetMapping("/instructor")
+	public ModelAndView instructorForm(Model model, @RequestParam(name = "idinsetado", required=false)int idinsetado) {
+		ModelAndView mav = new ModelAndView(ViewConstant.INSTRUCTOR_FORM);
+		user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		username = user.getUsername();
+		Users usuario = new Users();
+		InstructorModel inst = new InstructorModel();
+		mav.addObject("username", username);
+		model.addAttribute("usuarioForm", usuario);
+		model.addAttribute("instructorForm",inst);
+		return mav;
+	}
+	
 	@PostMapping("/addAlumno")
 	public String addAlumno(@ModelAttribute(name = "alumnoModel") AlumnoModel AlmModel) {
 		adminser.nuevoAlumno(AlmModel);
@@ -56,5 +70,12 @@ public class AdminAlumInstEventController {
 		return "redirect:/insert/alumno?InsertadoAlumno=1";
 	}
 	
+	
+	@PostMapping("/addInstructor")
+	public String addInstructor(@ModelAttribute(name = "instructorModel") InstructorModel InstruModel) {
+		adminser.nuevoInstructor(InstruModel);
+		LOG.info("El Instructor se Agrego Correctamente");
+		return "redirect:/insert/instructor?idinsetado=1";
+	}
 
 }

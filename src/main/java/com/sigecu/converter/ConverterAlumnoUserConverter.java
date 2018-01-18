@@ -6,9 +6,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.sigecu.entity.Alumno;
+import com.sigecu.entity.Instructor;
 import com.sigecu.entity.UserRole;
 import com.sigecu.entity.Users;
 import com.sigecu.model.AlumnoModel;
+import com.sigecu.model.InstructorModel;
 @Component("alumnoConverterUsu")
 public class ConverterAlumnoUserConverter {
 
@@ -57,7 +59,38 @@ public class ConverterAlumnoUserConverter {
 					
 					LOG.info("AlumnoModel Convertido");
 					return almo;
-					
-					
-				}
+				
+		}
+				
+	public Users converterInstructorModelToUser(InstructorModel inmod) {
+		Users usu = new Users();
+		usu.setUsername(inmod.getiNombre());
+		usu.setEnabled(true);
+		usu.setImagen("");
+		BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
+		usu.setPassword(pe.encode(inmod.getiNombre()));
+		LOG.info("USUARIO DE INSTRUCTOR CONVERTIDO");
+		return usu;
+	}
+				
+	public UserRole converterInstructorModelToUserRole(InstructorModel inmod) {
+		UserRole userrol = new UserRole();
+		userrol.setDescripcion("Uuario de "+inmod.getiNombre());
+		userrol.setRole("ROLE_INSTRUCTOR");
+		userrol.setUser(converterInstructorModelToUser(inmod));
+		return userrol;
+	}
+	public Instructor converterInstructorModelToIntructor(InstructorModel instmod) {
+		Instructor in = new Instructor();
+		in.setiNombre(instmod.getiNombre());
+		in.setiPaterno(instmod.getiPaterno());
+		in.setiMaterno(instmod.getiMaterno());
+		in.setiTelefono(instmod.getiTelefono());
+		in.setCarrera(instmod.getCarrera());
+		in.setiEmail(instmod.getiEmail());
+		in.setiDireccion(instmod.getiDireccion());
+		in.setUser(converterInstructorModelToUser(instmod));
+		
+		return in;
+	}
 }
