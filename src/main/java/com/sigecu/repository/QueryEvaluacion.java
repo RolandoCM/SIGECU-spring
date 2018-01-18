@@ -101,11 +101,11 @@ public class QueryEvaluacion {
 	/*
 	 * * preguntas erradas para retroalimentacion
 	 */
-	public List<Preguntas> findPreguntasErradasRetro(int idEvaluacion, int idAsignaExamen){
+	public List<Preguntas> findPreguntasCorrectaRetro(int idEvaluacion, int idAsignaExamen){
 		JPAQuery<Preguntas> query = new JPAQuery<>(em);
 		List<Preguntas> listPreguntas = query.select(qPreguntas)
 				.from(qPreguntas, qALM, qRespuestas, qAsignaExamen)
-				.where(qRespuestas.rSolucion.eq("0")
+				.where(qRespuestas.rSolucion.eq("1")
 						.and(qALM.idRespuesta.eq(qRespuestas.idRespuesta))
 						.and(qALM.idPregunta.eq(qPreguntas.idPregunta))
 						.and(qAsignaExamen.idasignaExamen.eq(idAsignaExamen))

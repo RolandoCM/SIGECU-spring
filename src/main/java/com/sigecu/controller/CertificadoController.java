@@ -59,7 +59,7 @@ public class CertificadoController {
 //		return mav;
 //	}
 	
-	@GetMapping("/certificado2")
+	@GetMapping("/certificado")
 		public ModelAndView certificado2(
 			@RequestParam(name = "idEvento", required = false) int idEvento) {
 		JasperReportsPdfView cerView = new JasperReportsPdfView();

@@ -18,6 +18,7 @@ public class PreguntasRetroModel {
 	private int correcta;
 	private String descripcion;
 	private List<RespuestasModel> respuestasModel = new ArrayList<>();
+	private int seleccionada;
 	/**
 	 * 
 	 */
@@ -33,13 +34,21 @@ public class PreguntasRetroModel {
 	 * @param respuestasModel
 	 */
 	public PreguntasRetroModel(int idPregunta, String preguntaEnun, int correta, String descripcion,
-			List<RespuestasModel> respuestasModel) {
+			List<RespuestasModel> respuestasModel, int seleccionada) {
 		super();
 		this.idPregunta = idPregunta;
 		this.preguntaEnun = preguntaEnun;
 		this.correcta = correta;
 		this.descripcion = descripcion;
 		this.respuestasModel = respuestasModel;
+		this.seleccionada = seleccionada;
+	}
+	
+	public int getSeleccionada() {
+		return seleccionada;
+	}
+	public void setSeleccionada(int seleccionada) {
+		this.seleccionada = seleccionada;
 	}
 	/**
 	 * @return the idPregunta
@@ -101,6 +110,13 @@ public class PreguntasRetroModel {
 	public void setRespuestasModel(List<RespuestasModel> respuestasModel) {
 		this.respuestasModel = respuestasModel;
 	}
+	@Override
+	public String toString() {
+		return "PreguntasRetroModel [idPregunta=" + idPregunta + ", preguntaEnun=" + preguntaEnun + ", correcta="
+				+ correcta + ", descripcion=" + descripcion + ", respuestasModel=" + respuestasModel + ", seleccionada="
+				+ seleccionada + "]";
+	}
+	
 	
 	
 }

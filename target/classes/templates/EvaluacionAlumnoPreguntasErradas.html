@@ -32,44 +32,74 @@
 	<section class="content">
 		<div class="container-fluid">
 
-			<!-- #END# Basic Example | Horizontal Layout -->
-			<!-- Basic Example | Vertical Layout -->
 			<div class="row clearfix">
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				
+				<div class="col-lg-12 col-md-12 col-sm-6 col-xs-12">
+                    <div class="card">
+                        <div class="body">
+                            <blockquote class="m-b-25">
+							    <p>Examen.</p>
+							</blockquote>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12" th:each="pregunta : ${listaPreguntas}">
 					<div class="card">
-						<div class="header">
-							<h2>Examen</h2>
-							<ul class="header-dropdown m-r--5">
-								<li class="dropdown"><a href="javascript:void(0);"
-									class="dropdown-toggle" data-toggle="dropdown" role="button"
-									aria-haspopup="true" aria-expanded="false"> <i
-										class="material-icons">more_vert</i>
-								</a></li>
-							</ul>
-						</div>
-
-
-
-						<div class="body">
-								<div class="card" th:each="pregunta : ${listaPreguntas}">
-								<button th:if ="${pregunta.correcta==1}" type="button" class="btn bg-blue btn-circle-lg waves-effect waves-circle waves-float">
-                                    <i class="material-icons">done</i>
-                                </button>
-                                <button th:if ="${pregunta.correcta==0}" type="button" class="btn bg-red btn-circle-lg waves-effect waves-circle waves-float">
-                                    <i class="material-icons">clear</i>
-                                </button>
-								<p th:text="${pregunta.preguntaEnun}"></p>
-								<div th:each="respuesta : ${pregunta.respuestasModel}" >	
-									<input th:value="${respuesta.rSolucion}" th:id="'radio'+${respuesta.idRespuesta}" type="radio"/>
-									<label th:id="'radio'+${respuesta.idRespuesta}" th:text="${respuesta.rRespuesta}"></label>
+                    	<!-- Correcta -->
+                        <div th:if ="${pregunta.correcta==1}" class="header bg-green">
+                            <h2>
+                            	<p th:text="${pregunta.preguntaEnun}"></p>
+                                <small th:text="${pregunta.descripcion}"></small>
+                            </h2>
+                            <ul class="header-dropdown m-r-0">
+                                <li>
+                                    <a href="javascript:void(0);">
+                                        <i class="material-icons">done</i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    	<!-- Incorrecta -->
+                        <div th:if ="${pregunta.correcta==0}" class="header bg-red">
+                            <h2>
+                            	<p th:text="${pregunta.preguntaEnun}"></p>
+                            	<!--p th:text="${pregunta.seleccionada}"></p-->
+                            </h2>
+                            <ul class="header-dropdown m-r-0">
+                                <li>
+                                    <a href="javascript:void(0);">
+                                        <i class="material-icons">clear</i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="body">
+							<div th:each="respuesta : ${pregunta.respuestasModel}" >
+								<!-- Seleccionada -->
+								<div th:if ="${respuesta.idRespuesta==pregunta.seleccionada}">
+									<div th:if ="${pregunta.correcta==1}">
+										<input th:value="${respuesta.rSolucion}" th:id="'radio'+${respuesta.idRespuesta}" type="radio" checked="checked" class="with-gap radio-col-green"/>
+										<label th:id="'radio'+${respuesta.idRespuesta}" th:text="${respuesta.rRespuesta}"></label>
+									</div>
+									<div th:unless="${pregunta.correcta==1}">
+										<input th:value="${respuesta.rSolucion}" th:id="'radio'+${respuesta.idRespuesta}" type="radio" checked="checked" class="with-gap radio-col-red"/>
+										<label th:id="'radio'+${respuesta.idRespuesta}" th:text="${respuesta.rRespuesta}"></label>
+									</div>
 								</div>
-								<p th:if ="${pregunta.correcta==1}" th:text="${pregunta.descripcion}"></p>
-					</div>
-				</div>
-
-			</div>
+								<!-- No seleccionada -->
+								<div th:if ="${respuesta.idRespuesta!=pregunta.seleccionada}">
+									<input th:value="${respuesta.rSolucion}" th:id="'radio'+${respuesta.idRespuesta}" type="radio"/>
+									<label th:id="'radio'+${respuesta.idRespuesta}" th:text="${respuesta.rRespuesta}"></label>	
+								</div>
+							</div>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+            
 		</div>
-		</div></div>
 	</section>
 	<!-- #END# Basic Example | Vertical Layout -->
 

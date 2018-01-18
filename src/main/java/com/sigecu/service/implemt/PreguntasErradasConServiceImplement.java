@@ -103,16 +103,25 @@ public class PreguntasErradasConServiceImplement implements PreguntasErradasConS
 	@Override
 	public List<PreguntasRetroModel> listarPregunrasByExam(int idEvaluacion, int idAsignaExamen) {
 		List<Preguntas> listPreguntas = queryEvaluacion.findAllPreguntasById(idEvaluacion);
-		List<Preguntas> listPreguntasErr = queryEvaluacion.findPreguntasErradasRetro(idEvaluacion, idAsignaExamen);
+		List<Preguntas> listPreguntasErr = queryEvaluacion.findPreguntasCorrectaRetro(idEvaluacion, idAsignaExamen);
 		List<PreguntasRetroModel> preguntasRetroModel = new ArrayList<PreguntasRetroModel>();
+		PreguntasRetroModel preguntaRetro = new PreguntasRetroModel();
 
 		for (Preguntas pregunta : listPreguntas) {
-			if(listPreguntasErr.contains(pregunta)) {
-				preguntasRetroModel.add(preguntasConverter.converterPreguntasToPreguntasModelAndRespuestasRetro(pregunta, 0));
+			if(!listPreguntasErr.contains(pregunta)) {
+				preguntaRetro = preguntasConverter.converterPreguntasToPreguntasModelAndRespuestasRetro(pregunta, 0);
+				
+				RespuestaALMEntity rHA =respuestaALMRepository.findByIdPregunta(pregunta.getIdPregunta());
+				preguntaRetro.setSeleccionada(rHA.getIdRespuesta());
+				preguntasRetroModel.add( preguntaRetro);
 				LOG.info("ES INCORRECTA : "+pregunta.getIdPregunta()+"...............");
 			}
 			else {
-				preguntasRetroModel.add(preguntasConverter.converterPreguntasToPreguntasModelAndRespuestasRetro(pregunta, 1));
+				preguntaRetro = preguntasConverter.converterPreguntasToPreguntasModelAndRespuestasRetro(pregunta, 1);
+				
+				RespuestaALMEntity rHA =respuestaALMRepository.findByIdPregunta(pregunta.getIdPregunta());
+				preguntaRetro.setSeleccionada(rHA.getIdRespuesta());
+				preguntasRetroModel.add( preguntaRetro);
 				LOG.info("ES CORRECTA : "+pregunta.getIdPregunta()+"...............");
 			}
 		}
