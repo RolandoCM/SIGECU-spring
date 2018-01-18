@@ -10,11 +10,13 @@ import org.springframework.stereotype.Service;
 
 import com.sigecu.converter.EvaluacionConverter;
 import com.sigecu.converter.RespuestasALMConverter;
+import com.sigecu.entity.AsignaExamenEntity;
 import com.sigecu.entity.Evaluaciones;
 import com.sigecu.entity.Preguntas;
 import com.sigecu.entity.RespuestaALMEntity;
 import com.sigecu.model.EvaluacionesModel;
 import com.sigecu.model.RespuestaALMModel;
+import com.sigecu.repository.AsignaExamenRepository;
 import com.sigecu.repository.CalificacionRepository;
 import com.sigecu.repository.EvaluacionRepository;
 import com.sigecu.repository.PreguntasRepository;
@@ -57,6 +59,9 @@ public class CalificacionImplement implements CalificacionService {
 	@Autowired 
 	@Qualifier("evaluacionesRepository")
 	private EvaluacionRepository evaluacionRepository;
+	@Autowired
+	@Qualifier("asignaExamenRepository")
+	private AsignaExamenRepository asignaExamenRepository;
 
 
 	@Override
@@ -70,6 +75,23 @@ public class CalificacionImplement implements CalificacionService {
 		double calificacion =  aciertos / total * 100.0;
 		double [] resumen = {calificacion, aciertos, erradas};
 		return resumen;
+	}
+
+
+	@Override
+	public void validarCalificacion(double[] resumen, int idAsignaExamen, int idEvaluacion) {
+		Evaluaciones evaluacion = evaluacionRepository.findByIdEvaluacion(idEvaluacion);
+		AsignaExamenEntity asignaExamen = asignaExamenRepository.findByIdasignaExamen(idAsignaExamen);
+		double minimo = Double.parseDouble(evaluacion.getePorsentaje());
+		if(minimo<=resumen[0]) {
+			asignaExamen.setStatus("1");
+		}
+		else {
+			asignaExamen.setStatus("0");
+		}
+		asignaExamenRepository.save(asignaExamen);
+		LOG.info("EL ALUMNO TIENE UN EXAMEN EN: "+asignaExamen.getStatus());
+		
 	}
 
 }

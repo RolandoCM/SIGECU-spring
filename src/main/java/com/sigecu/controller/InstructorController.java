@@ -110,7 +110,7 @@ public class InstructorController {
 	public ModelAndView asignaExamen(@ModelAttribute(name = "registroAsigna") AsignaExamenModel asignaExamen,
 			@RequestParam(name="idAlumno", required=true) int idAlumno, 
 			@RequestParam(name="idEvento", required=true) int idEvento,
-			@RequestParam(name="idEvento", required=true) int idAsignaExamen) {
+			@RequestParam(name="idAsignaExamen", required=true) int idAsignaExamen) {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("redirect:/instructor/seguimientoAlumno?idAlumno="+idAlumno+"&idEvento="+idEvento);
 		LOG.info("ASIGNADO: " + asignaExamen.toString()+ "idAsigna: "+idAsignaExamen);

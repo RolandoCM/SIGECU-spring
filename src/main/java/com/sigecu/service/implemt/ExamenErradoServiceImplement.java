@@ -108,7 +108,9 @@ public class ExamenErradoServiceImplement implements ExamenErradoService {
 	public void marcarExamenRealizado(int idAsignaExamen) {
 		AsignaExamenEntity asignaExamen = asignaExamenRepository.findByIdasignaExamen(idAsignaExamen);
 		asignaExamen.setRealizado("1");
+		asignaExamen.setAsignado("0");
 		asignaExamenRepository.save(asignaExamen);
+		LOG.info("EXAMEN MARCADO COMO REALIZADO: "+idAsignaExamen);
 		
 	}
 

@@ -57,10 +57,13 @@ public class CalificacionesController {
 		alumnoModel =defineUsuario.buscarUsuarioAlumno(user.getUsername());
 		
 		//mav.addObject("ePorsentaje",EvaluacionAlumnoService.calificacion(1));
-		mav.addObject("resumen",calificacionService.calificacionFnl(idEvaluacion,idAsignaExamen));
+		double [] resumen = calificacionService.calificacionFnl(idEvaluacion,idAsignaExamen);
+		calificacionService.validarCalificacion(resumen, idAsignaExamen, idEvaluacion);
+		mav.addObject("resumen",resumen);
 		mav.addObject("user", alumnoModel );
 		try {
-			mailService.send(alumnoModel.getA_email(), "Examen realizado", "Calificacion Final: "+"");
+			mailService.send(alumnoModel.getA_email(), "Examen realizado", "Calificacion Examen: "+resumen[0]+
+					"/nAcieros: "+resumen[1]+" \nErradas: "+resumen[2]);
 		} catch (AddressException e) {
 			LOG.error("La direccion de correo es incorrecta");
 			e.printStackTrace();

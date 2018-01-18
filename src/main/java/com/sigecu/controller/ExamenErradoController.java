@@ -108,6 +108,7 @@ public class ExamenErradoController {
 				//model.addAttribute("eHoraFin",evaluacionAlumnoService.horaFin(idEvaluacion));
 			} else {
 				evaluacionAlumnoService.marcarExamenRealizado(asignaExamen.getIdasignaExamen());
+				LOG.info("EXAMEN TERMINADO:.........");
 				mav.setViewName("redirect:/calificaciones/mostrarCalificaciones?idEvaluacion="+idEvaluacion+"&idAsignaExamen="+asignaExamen.getIdasignaExamen());
 			}
 

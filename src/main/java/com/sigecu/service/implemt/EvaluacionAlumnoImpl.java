@@ -127,8 +127,10 @@ public class EvaluacionAlumnoImpl implements EvaluacionAlumnoService {
 	@Override
 	public void marcarExamenRealizado(int idAsignaExamen) {
 		AsignaExamenEntity asignaExamen = asignaExamenRepository.findByIdasignaExamen(idAsignaExamen);
+		asignaExamen.setAsignado("0");
 		asignaExamen.setRealizado("1");
 		asignaExamenRepository.save(asignaExamen);
+		LOG.info("EXAMEN MARCADO COMO REALIZADO: "+idAsignaExamen);
 		
 	}
 	@Override

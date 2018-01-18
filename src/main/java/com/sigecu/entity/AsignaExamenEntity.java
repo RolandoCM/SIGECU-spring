@@ -116,6 +116,17 @@ public class AsignaExamenEntity {
 	public AsignaExamenEntity() {
 		
 	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "AsignaExamenEntity [idasignaExamen=" + idasignaExamen + ", asignado=" + asignado + ", fechaInicio="
+				+ fechaInicio + ", fechaFin=" + fechaFin + ", horaInicio=" + horaInicio + ", horafin=" + horafin
+				+ ", realizado=" + realizado + ", status=" + status + ", respuestasAML=" + respuestasAML
+				+ ", alumnoHasEventos=" + alumnoHasEventos + "]";
+	}
+	
 
 }
 

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>Seguimiento Alumnos</title>
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet" type="text/css" />
+<link rel="stylesheet"
+	th:href="@{/fonts/material-design-icons-master/material-icons.css}" />
+
+<!-- Bootstrap Core Css -->
+<link th:href="@{/plugins/bootstrap/css/bootstrap.css}" rel="stylesheet" />
+
+<!-- Waves Effect Css -->
+<link th:href="@{/plugins/node-waves/waves.css}" rel="stylesheet" />
+
+<!-- Bootstrap Select Css -->
+<!--link href="../../plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" /-->
+
+<!-- Animation Css -->
+<link th:href="@{/plugins/animate-css/animate.css}" rel="stylesheet" />
+
+<!-- Bootstrap Material Datetime Picker Css -->
+<link
+	th:href="@{/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css}"
+	rel="stylesheet" />
+
+<!-- Wait Me Css -->
+<link th:href="@{/plugins/waitme/waitMe.css}" rel="stylesheet" />
+
+<!-- Custom Css -->
+<link th:href="@{/css/style.css}" rel="stylesheet" />
+
+<!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
+<link th:href="@{/css/themes/all-themes.css}" rel="stylesheet" />
+</head>
+<body class="theme-red">
+	<section th:include="@{fragment/menuInstructor}"></section>
+	<section class="content">
+		<div class="container-fluid">
+			<div class="block-header"></div>
+			<!-- Basic Example -->
+			<div class="row clearfix">
+
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					<div class="card">
+						<div class="header bg-cyan">
+							<ul class="header-dropdown m-r--5">
+							</ul>
+							<h2 th:text="'Alumno: '+${alumno.a_nombre}"></h2>
+						</div>
+						<div class="body">
+							<p th:text="'Examen: '+${evaluacion.eNombre}"></p>
+							<div class="info-box bg-teal hover-zoom-effect">
+								<div class="icon">
+									<i class="material-icons">equalizer</i>
+								</div>
+								<div class="content">
+									<div class="text">Calificación de Examen</div>
+									<div class="number" th:text="${resultadoExamen[0]}"></div>
+								</div>
+							</div>
+							<div class="info-box bg-teal hover-zoom-effect">
+								<div class="icon">
+									<i class="material-icons">done</i>
+								</div>
+								<div class="content">
+									<div class="text">Aciertos</div>
+									<div class="number" th:text="${resultadoExamen[1]}"></div>
+								</div>
+							</div>
+							<div class="info-box bg-teal hover-zoom-effect">
+								<div class="icon">
+									<i class="material-icons">remove</i>
+								</div>
+								<div class="content">
+									<div class="text">Erradas</div>
+									<div class="number" th:text="${resultadoExamen[2]}"></div>
+								</div>
+							</div>
+							<div class="info-box bg-teal hover-zoom-effect">
+								<div class="icon">
+									<i class="material-icons">brightness_low</i>
+								</div>
+								<div class="content" th:switch="${asignaExamen.status}">
+									<div class="text">Estado del Examen</div>
+									<div class="number" th:case="'1'">Aprovado</div>
+									<div class="number" th:case="'0'">Reprovado</div>
+									<div class="number" th:case="*">Reprovado</div>
+								</div>
+							</div>
+							<a>
+								<button name="respuestas" type="button"
+									class="btn bg-deep-orange waves-effect m-r-20"
+									value="Agregar Respuesta" id="respuestas"
+									data-color="deep-orange" data-toggle="modal"
+									th:attr="data-target='#ModalExamen'">
+									<i class="material-icons">add</i>Gestionar Examen
+								</button>
+							</a>
+
+
+							<!-- Asignar alumno-->
+							<div class="modal fade" th:id="'ModalExamen'" tabindex="-1"
+								role="dialog">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h4 class="modal-title" id="smallModalLabel">ASIGNAR
+													EXAMEN</h4>
+											</div>
+											<div class="modal-body">
+												<div class="body">
+													<form action="#"
+														th:action="@{/instructor/asignarExamen(idEvento=${idEvento},idAlumno=${alumno.id_alumno},
+														idAsignaExamen=${asignaExamen.idasignaExamen})}"
+														th:object="${registroAsigna}" method="POST">
+														<div class="row clearfix">
+															<input th:field="*{idasignaExamen}"
+																th:value="idAsignaExamen" type="hidden" />
+															<div class="col-md-3">
+																<b>Date</b>
+																<div class="input-group">
+																	<span class="input-group-addon"> <i
+																		class="material-icons">date_range</i>
+																	</span>
+																	<div class="form-line">
+																		<input class="form-control date"
+																			placeholder="Ex: 30/07/2016" type="text"
+																			th:field="*{fechaInicio}" />
+																	</div>
+																</div>
+															</div>
+
+															<div class="col-md-6">
+																<label for="title">Fecha Fin</label>
+																<div class="form-group">
+																	<div class="form-line">
+																		<input type="text" id="pregunta" class="form-control"
+																			placeholder="Escribe respuesta"
+																			th:field="*{fechaFin}" required=""
+																			aria-required="true" />
+																	</div>
+																</div>
+															</div>
+
+
+															<div class="col-md-6">
+																<label for="title">Asignado</label>
+																<div class="input-group form-group">
+																	<input type="radio" id="radio1" class="with-gap"
+																		required="" aria-required="true"
+																		th:field="*{asignado}" value="1" /> <label
+																		for="radio1">Si</label> <input type="radio"
+																		id="radio2" class="with-gap" th:field="*{asignado}"
+																		value="0" checked="checked" required=""
+																		aria-required="true" /> <label for="radio2"
+																		class="m-l-20">No</label>
+																</div>
+
+															</div>
+
+														</div>
+														<div class="modal-footer">
+															<button type="submit"
+																class="btn btn-primary waves-effect">GUARDAR</button>
+															<button type="button" class="btn btn-danger waves-effect"
+																data-dismiss="modal">CERRAR</button>
+														</div>
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Jquery Core Js -->
+	<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+
+	<!-- Bootstrap Core Js -->
+	<script th:src="@{/plugins/bootstrap/js/bootstrap.js}"></script>
+
+	<!-- Select Plugin Js -->
+	<!--script src="../../plugins/bootstrap-select/js/bootstrap-select.js"></script-->
+
+	<!-- Slimscroll Plugin Js -->
+	<script th:src="@{/plugins/jquery-slimscroll/jquery.slimscroll.js}"></script>
+
+	<!-- Waves Effect Plugin Js -->
+	<script th:src="@{/plugins/node-waves/waves.js}"></script>
+
+	<!-- Autosize Plugin Js -->
+	<script th:src="@{/plugins/autosize/autosize.js}"></script>
+
+	<!-- Moment Plugin Js -->
+	<script th:src="@{/plugins/momentjs/moment.js}"></script>
+
+	<!-- Bootstrap Material Datetime Picker Plugin Js -->
+	<script
+		th:src="@{/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js}"></script>
+
+	<!-- Jquery Validation Plugin Css -->
+	<script th:src="@{/plugins/jquery-validation/jquery.validate.js}"></script>
+
+	<!-- Custom Js -->
+	<script th:src="@{/js/admin.js}"></script>
+
+	<!-- Demo Js -->
+	<script th:src="@{/js/demo.js}"></script>
+	<script type="text/javascript">
+		$(function() {
+			$('.timepicker').bootstrapMaterialDatePicker({
+				format : 'HH:mm',
+				clearButton : true,
+				date : false
+			});
+
+		});
+	</script>
+</body>
+</html>

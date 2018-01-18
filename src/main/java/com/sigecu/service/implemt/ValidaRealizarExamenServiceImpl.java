@@ -122,7 +122,7 @@ public class ValidaRealizarExamenServiceImpl implements ValidarExamenAlumnoServi
 			LOG.info("ID ALUMNO: " + aHE.getAlumno().getIdAlumno() + " ID EVENTO: " + aHE.getEvntos().getIdEvento()
 					+ " ASIGNA EXAMEN: " + aHE.getAsignaExamen().getIdasignaExamen());
 			LOG.info("ACTIVO: " + aHE.getAsignaExamen().getAsignado());
-			if (aHE.getAsignaExamen().getAsignado().equals("1") && 
+			if (aHE.getAsignaExamen().getAsignado().equals("0") && 
 					aHE.getAsignaExamen().getRealizado().equals("1")) {
 				return true;
 			} else {

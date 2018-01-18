@@ -90,7 +90,9 @@ public class EvaluacionAlumnoController {
 				model.addAttribute("eHoraInicio",evaluacionAlumnoService.horaInicio(idEvaluacion));
 				model.addAttribute("eHoraFin",evaluacionAlumnoService.horaFin(idEvaluacion));
 			} else {
+				LOG.info("EXAMEN TERMINADO..........");
 				mav.setViewName("redirect:/calificaciones/mostrarCalificaciones?idEvaluacion="+idEvaluacion+"&idAsignaExamen="+asignaExamen.getIdasignaExamen());
+				evaluacionAlumnoService.marcarExamenRealizado(asignaExamen.getIdasignaExamen());
 			}
 
 			return mav;

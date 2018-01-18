@@ -88,6 +88,7 @@ public class SeguimientoAlumnosServiceImpl implements SeguimientoAlumnoService {
 		
 		/*buscar el asigna evento*/
 		Alumno_Has_Eventos alumnoHasEventos = queryAlumnoHasEvento.findAlumnoHasEvento(alumnoModel.getId_alumno(), idEvento);
+		LOG.info("ALUMNOS_HAS_EVENTOS: "+alumnoHasEventos.getAsignaExamen().getIdasignaExamen()+" ALUMNO: "+alumnoHasEventos.getAlumno().getIdAlumno());
 		AsignaExamenEntity asignaExamen = alumnoHasEventos.getAsignaExamen();
 		AsignaExamenModel asignaExamenModel = asignaExamenConverter.converterAsignaExamenToAsignaExamenModel(asignaExamen);
 		double [] examen = calificacionService.calificacionFnl(evaluacion.getIdEvaluacion(), asignaExamen.getIdasignaExamen());
@@ -102,10 +103,21 @@ public class SeguimientoAlumnosServiceImpl implements SeguimientoAlumnoService {
 	@Override
 	public boolean activarExamenAlumno(int idAsignaExamen, AsignaExamenModel asignaExamen) throws BusinessException {
 		try {
+			AsignaExamenEntity asignaOld = asignaExamenRepository.findByIdasignaExamen(idAsignaExamen);
 			asignaExamen.setIdasignaExamen(idAsignaExamen);
+			asignaExamen.setStatus("0");
+			LOG.info("ID de asignaEXAMEN: "+ idAsignaExamen);
+			LOG.info(asignaOld.toString());
+			if((asignaOld.getRealizado() == null)|| (asignaOld.getRealizado().equals("0") )) 
+				asignaExamen.setRealizado("0");
+			else
+				asignaExamen.setRealizado("1");
+				
+			LOG.info(asignaExamen.toString());
 			AsignaExamenEntity asignaEntity =asignaExamenConverter.converterAsignaExamenModelToAsignaExamenEntity(asignaExamen);
 			asignaExamenRepository.save(asignaEntity);
 		}catch(Exception e) {
+			e.printStackTrace();
 			LOG.error("ERROR CAPA DE SERVICE: ");
 		}
 		return false;

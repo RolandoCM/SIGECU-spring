@@ -40,6 +40,8 @@ public class AsignaExamenConverter {
 		asignaExamen.setFechaInicio(asignaModel.getFechaInicio());
 		asignaExamen.setFechaFin(asignaModel.getFechaFin());
 		asignaExamen.setAsignado(asignaModel.getAsignado());
+		asignaExamen.setRealizado(asignaModel.getRealizado());
+		asignaExamen.setStatus(asignaModel.getStatus());
 		asignaExamen.setIdasignaExamen(asignaModel.getIdasignaExamen());
 		return asignaExamen;
 	}
