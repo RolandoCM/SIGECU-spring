@@ -78,6 +78,7 @@ public class PreguntasConverter {
 		
 		List<RespuestasModel> respuestasModel = new ArrayList<>();
 		Iterator<Respuestas> iter = preguntas.getRespuestas().iterator();
+		LOG.info("Conversion correcta: PREGUNTA "+ preguntas.getIdPregunta());
 		while(iter.hasNext()) {
 			RespuestasModel respuesta = respuestasConverter.converterRespuestasToRespuestasModelAndAML(iter.next());
 			respuestasModel.add(respuesta);
@@ -87,6 +88,7 @@ public class PreguntasConverter {
 		preguntaModel.setDescripcion(preguntas.getpDescripcion());
 		preguntaModel.setRespuestasModel(respuestasModel);
 		preguntaModel.setCorrecta(correcto);
+		LOG.info("Conversion correcta: PREGUNTA "+ preguntas.getIdPregunta());
 		return preguntaModel;
 	}
 

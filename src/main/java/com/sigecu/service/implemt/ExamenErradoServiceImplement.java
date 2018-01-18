@@ -88,9 +88,9 @@ public class ExamenErradoServiceImplement implements ExamenErradoService {
 	 */
 	@Override
 	public void guardarRespuestas(int idRespuesta, int idAsignaExamen, int idPregunta) {
-		RespuestaALMEntity respuestaALMEntity = respuestaALMRepository.findByIdPregunta(idPregunta);
 		
 		AsignaExamenEntity asignaExamen = asignaExamenRepository.findByIdasignaExamen(idAsignaExamen);
+		RespuestaALMEntity respuestaALMEntity = respuestaALMRepository.findByIdPreguntaAndAsignaExamen(idPregunta, asignaExamen);
 		respuestaALMEntity.setSeleccionada("2");
 		respuestaALMEntity.setIdRespuesta(idRespuesta);
 		respuestaALMEntity.setIdPregunta(idPregunta);
