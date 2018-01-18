@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<title>Lisa de Examenes</title>
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet" type="text/css" />
+<link href="#"
+	th:href="@{/fonts/material-design-icons-master/material-icons.css}" />
+<!-- Bootstrap Core Css -->
+<link th:href="@{/plugins/bootstrap/css/bootstrap.css}" rel="stylesheet" />
+
+<!-- Waves Effect Css -->
+<link th:href="@{/plugins/node-waves/waves.css}" rel="stylesheet" />
+
+<!-- Animation Css -->
+<link th:href="@{/plugins/animate-css/animate.css}" rel="stylesheet" />
+
+<!-- Colorpicker Css -->
+<link
+	th:href="@{/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.css}"
+	rel="stylesheet" />
+
+<!-- Dropzone Css -->
+<link th:href="@{/plugins/dropzone/dropzone.css}" rel="stylesheet" />
+
+<!-- Multi Select Css -->
+<link th:href="@{/plugins/multi-select/css/multi-select.css}"
+	rel="stylesheet" />
+
+<!-- Bootstrap Spinner Css -->
+<link th:href="@{/plugins/jquery-spinner/css/bootstrap-spinner.css}"
+	rel="stylesheet" />
+
+<!-- Bootstrap Tagsinput Css -->
+<link th:href="@{/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css}"
+	rel="stylesheet" />
+
+<!-- Bootstrap Select Css -->
+<link th:href="@{/plugins/bootstrap-select/css/bootstrap-select.css}"
+	rel="stylesheet" />
+
+<!-- noUISlider Css -->
+<link th:href="@{/plugins/nouislider/nouislider.min.css}"
+	rel="stylesheet" />
+
+<!-- Custom Css -->
+<link th:href="@{/css/style.css}" rel="stylesheet" />
+
+<!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
+<link th:href="@{/css/themes/all-themes.css}" rel="stylesheet" />
+
+
+</head>
+
+
+<body class="theme-red">
+	<section th:include="fragment/menuadmin"></section>
+	
+	
+	<section class="content">
+		<div class="container-fluid">
+
+			<div class="row clearfix">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="card">
+						<div class="header">
+							<h2>--ALUMNO--</h2>
+
+						</div>
+						<div class="body">
+						<div th:if="${InsertadoAlumno==1}" class="alert bg-green alert-dismissible" role="alert" >
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                               El Alumno se Inserto
+                            </div>
+						
+							<form th:action="@{/insert/addAlumno}" th:object="${alumnoForm}" method="POST">
+								<div class="demo-masked-input">
+									<div class="row clearfix">
+										<div class="col-md-6">
+											<b>Nombre</b>
+											<div class="input-group">
+												<span class="input-group-addon"> <i
+													class="material-icons">person_pin</i>
+												</span>
+												<div class="form-line">
+													<input type="text" class="form-control" id="nombre"
+														name="nombre" placeholder="Nombre del Alumno"
+														th:value="${a_nombre}" th:field="*{a_nombre}"
+														required="required" />
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<b>Apellido Paterno</b>
+											<div class="input-group">
+												<span class="input-group-addon"> <i
+													class="material-icons">person_pin</i>
+												</span>
+												<div class="form-line">
+													<input type="text" class="form-control"
+														placeholder="Apellido Paterno" name="apellioPat"
+														th:value="${a_paterno}" th:field="*{a_paterno}"
+														required="required" />
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<b>Apellido Materno</b>
+											<div class="input-group">
+												<span class="input-group-addon"> <i
+													class="material-icons">person_pin</i>
+												</span>
+												<div class="form-line">
+													<input type="text" class="form-control"
+														placeholder="Apellido Materno" name="apellidoMat"
+														th:value="${a_materno}" th:field="*{a_materno}"
+														required="required" />
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<b>Telefono</b>
+											<div class="input-group">
+												<span class="input-group-addon"> <i
+													class="material-icons">contact_phone</i>
+												</span>
+												<div class="form-line">
+													<input type="text" class="form-control mobile-phone-number"
+														placeholder="Ex: +00 (000) 000-00-00" name="telefono"
+														th:value="${a_telefono}" th:field="*{a_telefono}"
+														required="required" />
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<b>Email </b>
+											<div class="input-group">
+												<span class="input-group-addon"> <i
+													class="material-icons">email</i>
+												</span>
+												<div class="form-line">
+													<input type="text" class="form-control email"
+														placeholder="Ex: example@example.com" name="email"
+														th:value="${a_email}" th:field="*{a_email}"
+														required="required" />
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<b>Carrera</b>
+											<div class="input-group">
+												<span class="input-group-addon"> <i
+													class="material-icons">school</i>
+												</span>
+												<div class="form-line">
+													<input type="text" class="form-control"
+														placeholder="Carrera/Especialidad" name="carrera"
+														th:value="${a_carrera}" th:field="*{a_carrera}"
+														required="required" />
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<b>LLevara NoteBook</b>
+											<div class="input-group">
+												<span class="input-group-addon"> <i
+													class="material-icons"> laptop</i>
+												</span>
+												<div class="form-group">
+													<input type="radio" name="gender" id="si" class="with-gap"
+														value="1" th:field="*{a_notebook}" required="required" />
+													<label for="si">Si</label> <input type="radio"
+														name="gender" id="no" class="with-gap" value="0"
+														th:field="*{a_notebook}" required="required" /> <label
+														for="no" class="m-l-20">No</label>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<b>Estatus</b>
+											<div class="input-group">
+												<span class=""> <i class="material-icons">
+														check_box</i>
+												</span>
+												<div class="form-group">
+													<input type="radio" name="gender" id="preinscrito"
+														class="with-gap" value="1" th:field="*{a_status}"	required="required" />
+														 <label for="preinscrito">PreInscrito</label>
+													<input type="radio" name="gender" id="inscrito"
+														class="with-gap" value="0" th:field="*{a_status}"	required="required" /> 
+														<label for="inscrito" class="m-l-20">Inscrito</label>
+												</div>
+											</div>
+										</div>
+										<div class="modal-footer">
+											<button type="submit" class="btn btn-primary waves-effect">GUARDAR</button>
+											<button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">CERRAR</button>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+
+	<!-- Jquery Core Js -->
+	<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+
+	<!-- Bootstrap Core Js -->
+	<script th:src="@{/plugins/bootstrap/js/bootstrap.js}"></script>
+
+	<!-- Select Plugin Js -->
+	<script th:src="@{/plugins/bootstrap-select/js/bootstrap-select.js}"></script>
+
+	<!-- Slimscroll Plugin Js -->
+	<script th:src="@{/plugins/jquery-slimscroll/jquery.slimscroll.js}"></script>
+
+	<!-- Bootstrap Colorpicker Js -->
+	<script
+		th:src="@{/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js}"></script>
+
+	<!-- Dropzone Plugin Js -->
+	<script th:src="@{/plugins/dropzone/dropzone.js}"></script>
+
+	<!-- Input Mask Plugin Js -->
+	<script
+		th:src="@{/plugins/jquery-inputmask/jquery.inputmask.bundle.js}"></script>
+
+	<!-- Multi Select Plugin Js -->
+	<script th:src="@{/plugins/multi-select/js/jquery.multi-select.js}"></script>
+
+	<!-- Jquery Spinner Plugin Js -->
+	<script th:src="@{/plugins/jquery-spinner/js/jquery.spinner.js}"></script>
+
+	<!-- Bootstrap Tags Input Plugin Js -->
+	<script th:src="@{/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js}"></script>
+
+	<!-- noUISlider Plugin Js -->
+	<script th:src="@{/plugins/nouislider/nouislider.js}"></script>
+
+	<!-- Waves Effect Plugin Js -->
+	<script th:src="@{/plugins/node-waves/waves.js}"></script>
+
+	<!-- Custom Js -->
+	<script th:src="@{/js/admin.js}"></script>
+	<script th:src="@{/js/pages/forms/advanced-form-elements.js}"></script>
+
+	<!-- Demo Js -->
+	<script th:src="@{/js/demo.js}"></script>
+</body>
+</html>
