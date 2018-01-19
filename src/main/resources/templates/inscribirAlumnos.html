@@ -56,7 +56,7 @@
 											tabindex="-98">
 											<option th:selected="selected" th:disabled="disabled" value="">-- Please select --</option>
 											<option th:each=" alumno : ${alumnos}"
-												th:value="${alumno.id_alumno}" th:text="${alumno.a_nombre}"></option>
+												th:value="${alumno.id_alumno}" th:text="${alumno.a_nombre}+' '+${alumno.a_paterno}+ ' '+ ${alumno.a_materno}"></option>
 
 										</select>
 									</div>
@@ -67,7 +67,7 @@
 											<option th:selected="selected" th:disabled="disabled" value="">-- Please select --</option>
 											<option th:each=" evento : ${eventos}"
 												th:value="${evento.idevento}"
-												th:text="${evento.curso.cNombre}"></option>
+												th:text="${evento.curso.cNombre}+' --- impartido por --- '+${evento.instructor.iNombre}+' '+${evento.instructor.iPaterno}"></option>
 
 										</select>
 									</div>

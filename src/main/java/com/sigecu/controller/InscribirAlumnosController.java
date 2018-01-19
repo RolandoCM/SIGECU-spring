@@ -76,7 +76,7 @@ public class InscribirAlumnosController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		mav.setViewName(ViewConstant.INSCRIBE_ALUMNO);
+		mav.setViewName("redirect:/inscribirAlumnos/altaAlumno");
 		
 		
 		return mav;

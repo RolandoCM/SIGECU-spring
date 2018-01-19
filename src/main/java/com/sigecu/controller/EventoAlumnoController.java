@@ -59,12 +59,13 @@ public class EventoAlumnoController {
 		user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		alumnoModel =defineUsuario.buscarUsuarioAlumno(user.getUsername());
 		ModelAndView mav = new ModelAndView(ViewConstant.EXAMENES_ALUMNO);
-//		try {
-//			AsignaExamenModel asignaExamen = validaRealizarExamenAlumno.asignarExamen(alumnoModel.getId_alumno(), idEvento);
-//		} catch (BusinessException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		try {
+			AsignaExamenModel asignaExamen = validaRealizarExamenAlumno.asignarExamen(alumnoModel.getId_alumno(), idEvento);
+			mav.addObject("asignaExamenE", asignaExamen);
+		} catch (BusinessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		mav.addObject("listExamen", eventoAlumnoService.listAllExamen(alumnoModel.getId_alumno(), idEvento));
 		mav.addObject("user", alumnoModel);
 		mav.addObject("idEvento", idEvento);
