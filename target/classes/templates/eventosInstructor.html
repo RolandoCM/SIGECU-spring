@@ -53,7 +53,7 @@
 									class="material-icons">view_compact</i>
 								</span>
 								<div class="form-line">
-									<span th:text="${evento.geteFechaInicio()}"></span>
+									<span th:text="${evento.geteFechaInicio()}+' - '+${evento.eFechaTermino}"></span>
 								</div>
 							</div>
 							<a th:href="@{/instructor/alumnosEvento?idEvento=__${evento.getIdevento()}__}">
