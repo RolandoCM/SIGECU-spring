@@ -27,6 +27,7 @@ import com.sigecu.service.DefineUsuarioService;
 import com.sigecu.service.implemt.AlumnoHasEventoServiceImpl;
 
 import com.sigecu.service.implemt.CertificadoServiceImpl;
+import com.sigecu.service.implemt.EventoAlumnoImpl;
 
 
 @Controller
@@ -46,31 +47,38 @@ public class CertificadoController {
 	
 	@Autowired
 	private AlumnoHasEventoServiceImpl alumnoHasEventoService;
+	
+	@Autowired
+	@Qualifier("eventoAlumnoImpl")
+	private EventoAlumnoImpl eventoAlumnoImpl;  
+	
 	@Autowired
 	@Qualifier("defineUsuario")
 	private DefineUsuarioService defineUsuario;
 
-//	@GetMapping("/inicio")
-//	public ModelAndView ejemploMAV() {
-//		ModelAndView mav = new ModelAndView(ViewConstant.CERTIFICADO);
-//		
-//		alumnoHasEventoService.findAlumnoHasEventoByIdAlumnoAndIdEvento(1, 1);
-//		
-//		return mav;
-//	}
+
 	
 	@GetMapping("/certificado")
 		public ModelAndView certificado2(
 			@RequestParam(name = "idEvento", required = false) int idEvento) {
-		JasperReportsPdfView cerView = new JasperReportsPdfView();
-		cerView.setUrl("classpath:reports/certificadoR.jasper");
-		cerView.setApplicationContext(applicationContext);
+		
 		user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		alumnoModel =defineUsuario.buscarUsuarioAlumno(user.getUsername());
-		Map<String, Object> params = new HashMap<String, Object>();
-	    params.put("datasource", alumnoHasEventoService.report(alumnoModel.getId_alumno(), idEvento));
-	    //params.put("img", this.getClass().getResource("/src/main/resources/reports/c.png"));
-		return new ModelAndView(cerView, params);
+		
+		int validar = Integer.parseInt(eventoAlumnoImpl.validarcertificado(alumnoModel.getId_alumno(), idEvento));
+		
+		if (validar==1) {
+			JasperReportsPdfView cerView = new JasperReportsPdfView();
+			cerView.setUrl("classpath:reports/certificadoR.jasper");
+			cerView.setApplicationContext(applicationContext);
+			Map<String, Object> params = new HashMap<String, Object>();
+		    params.put("datasource", alumnoHasEventoService.report(alumnoModel.getId_alumno(), idEvento));
+		    //params.put("img", this.getClass().getResource("/src/main/resources/reports/c.png"));
+			return new ModelAndView(cerView, params);
+		} else {
+			return new ModelAndView(ViewConstant.CERTIFICADO);
+		}
+		
 	}
 	
 	

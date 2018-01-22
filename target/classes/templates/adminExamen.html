@@ -130,14 +130,14 @@
 											<td th:text="${exam.curso.getcNombre()}"></td>
 											<td>
 												<div class="row clearfix">
-													<div class="col-md-2">
+													<div class="col-md-6">
 														<a href="#"
 															th:href="@{/adminExamen/nuevoExamen?idEvaluacion=__${exam.idevaluacion}__}">
 															<button type="button"
 																class="btn btn-primary btn-lg m-l-15 waves-effect">Editar</button>
 														</a>
 													</div>
-													<div class="col-md-2">
+													<div class="col-md-6">
 														<a href="#"
 															th:href="@{/adminExamen/removeExamen(idCurso=${idCurso},idExamen=${exam.idevaluacion})}">
 															<button type="button"

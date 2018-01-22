@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1" />
 <title>Cursos</title>
 
 <meta charset="UTF-8" />
@@ -74,7 +73,11 @@
 									<span>Preguntas Erradas</span>
 									</a></li>
 									<li><a th:href="@{/ExamenErrado/ExamenErrado1(idEvento=${idEvento},idEvaluacion=${eva.idevaluacion})}"><span>Corregir Examen</span> </a></li>
+									<li th:if="${asignaExamenE.realizado=='1'}"><a th:href="@{/calificaciones/mostrarCalificaciones(idEvaluacion=${eva.idevaluacion},idAsignaExamen=${asignaExamenE.idasignaExamen})}">
+									<span>Calificación</span>
+									</a></li>
 									<li th:if="${status}==1"><a th:href="@{/alumno/certificado?idEvento=__${idEvento}__}" target="_blank"><span>Generar certificado</span></a></li>
+									  
 									
 								</ul>
 							</div>

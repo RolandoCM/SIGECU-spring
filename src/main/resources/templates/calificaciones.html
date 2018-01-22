@@ -52,18 +52,42 @@
 						</div>
 
 						<div class="body">
-							<div>
-							<label for="uname">Calificacion: </label>
-							<label for="uname" th:text="${resumen[0]}"></label>
-							<br/>
-							<label for="uname"> Preguntas acertadas: </label>
-							<label for="uname" th:text="${resumen[1]}"></label>
-							<br/>	
-							<label for="uname"> Preguntas erradas: </label>
-							<label for="uname" th:text="${resumen[2]}">0 </label>
-							
+							<div class="row clearfix">
+								<div
+									class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+									<div class="info-box bg-teal hover-zoom-effect">
+										<div class="icon">
+											<i class="material-icons">equalizer</i>
+										</div>
+										<div class="content">
+											<div class="text">Calificación de Examen</div>
+											<div class="number" th:text="${resumen[0]}"></div>
+										</div>
+									</div>
+									<div class="info-box bg-teal hover-zoom-effect">
+										<div class="icon">
+											<i class="material-icons">done</i>
+										</div>
+										<div class="content">
+											<div class="text">Aciertos</div>
+											<div class="number" th:text="${resumen[1]}"></div>
+										</div>
+									</div>
+									<div class="info-box bg-teal hover-zoom-effect">
+										<div class="icon">
+											<i class="material-icons">remove</i>
+										</div>
+										<div class="content">
+											<div class="text">Erradas</div>
+											<div class="number" th:text="${resumen[2]}"></div>
+										</div>
+									</div>
+								</div>
+
+
 							</div>
-							
+
+
 						</div>
 					</div>
 				</div>

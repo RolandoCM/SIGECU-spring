@@ -126,7 +126,8 @@ public class ExamenErradoController {
 			@RequestParam(name = "asignaExamen", required = true) int idAsignaExamen,
 			@RequestParam(name = "idPregunta", required = true) int idPregunta,
 			@ModelAttribute(name = "respuestaAlumno") VistaRespuestasAlumno respuestaAlumno) {
-
+		
+		LOG.info("EXAMEN POR GUARDAR: " + respuestaAlumno.toString() + " ASIGNA EXAMEN =" + idAsignaExamen);
 		 examenErradoService.guardarRespuestas(respuestaAlumno.getIdRespuesta(), idAsignaExamen, idPregunta);
 		 LOG.info("EXAMEN GUARDADO: " + respuestaAlumno.toString() + " ASIGNA EXAMEN =" + idAsignaExamen);
 		return "redirect:/ExamenErrado/ExamenErrado1?idEvento=" + idEvento + "&idEvaluacion=" + idEvaluacion;

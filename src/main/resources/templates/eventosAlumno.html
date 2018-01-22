@@ -53,18 +53,21 @@
 									class="material-icons">view_compact</i>
 								</span>
 								<div class="form-line">
-									<span th:text="${evento.geteFechaInicio()}"></span>
+									<span
+										th:text="${evento.geteFechaInicio()}+' - '+${evento.eFechaTermino}"></span>
 								</div>
+							</div>
+							<div class="demo-google-material-icon">
+								<i class="material-icons">assignment_ind</i> <span
+									class="icon-name"
+									th:text="'Instructor: '+${evento.instructor.iNombre}+' '+${evento.instructor.iPaterno}"></span>
+								<br />
+								<br />
 							</div>
 							<a
 								th:href="@{/eventosAlumno/listarExamenAlumno?idEvento=__${evento.getIdevento()}__}">
 								<button type="button" class="btn btn-primary waves-effect">
 									<i class="material-icons">question_answer</i> <span>Evaluaciones</span>
-								</button>
-							</a> <a th:href="@{/alumno/certificado2?idEvento=__${evento.getIdevento()}__}"
-								target="_blank">
-								<button type="button" class="btn btn-primary waves-effect">
-									<i class="material-icons">question_answer</i> <span>Certificado</span>
 								</button>
 							</a>
 						</div>

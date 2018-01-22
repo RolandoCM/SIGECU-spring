@@ -1,9 +1,12 @@
 package com.sigecu.controller;
 
 import com.sigecu.model.AlumnoModel;
+import com.sigecu.model.AsignaExamenModel;
 import com.sigecu.model.EventosModel;
 import com.sigecu.constant.ViewConstant;
+import com.sigecu.exception.BusinessException;
 import com.sigecu.service.DefineUsuarioService;
+import com.sigecu.service.ValidarExamenAlumnoService;
 import com.sigecu.service.eventoAlumnoService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -32,6 +35,9 @@ public class EventoAlumnoController {
 	@Autowired
 	@Qualifier("eventoAlumnoImpl")
 	private eventoAlumnoService eventoAlumnoService;
+	@Autowired
+	@Qualifier("validarRealizarExamen")
+	private ValidarExamenAlumnoService validaRealizarExamenAlumno;
 	
 	private User user;
 	AlumnoModel alumnoModel;
@@ -53,6 +59,13 @@ public class EventoAlumnoController {
 		user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		alumnoModel =defineUsuario.buscarUsuarioAlumno(user.getUsername());
 		ModelAndView mav = new ModelAndView(ViewConstant.EXAMENES_ALUMNO);
+		try {
+			AsignaExamenModel asignaExamen = validaRealizarExamenAlumno.asignarExamen(alumnoModel.getId_alumno(), idEvento);
+			mav.addObject("asignaExamenE", asignaExamen);
+		} catch (BusinessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		mav.addObject("listExamen", eventoAlumnoService.listAllExamen(alumnoModel.getId_alumno(), idEvento));
 		mav.addObject("user", alumnoModel);
 		mav.addObject("idEvento", idEvento);
