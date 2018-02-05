@@ -53,4 +53,6 @@ public class ViewConstant {
 	
 	//instructor
 	public static final String INSTRUCTOR_FORM = "instructor";
+	
+	public static final String ERROR_404 = "404";
 }

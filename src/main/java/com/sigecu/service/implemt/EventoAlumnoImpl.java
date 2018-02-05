@@ -97,10 +97,18 @@ public class EventoAlumnoImpl implements eventoAlumnoService{
 	 * @see com.sigecu.service.eventoAlumnoService#validarcertificado(int, int)
 	 */
 	@Override
-	public String validarcertificado(int idAlumno, int idEvento) {
-		String status = queryEventoAlumno.validarCertificado(idEvento, idAlumno).getStatus();
-		 		LOG.info("Estatus evento: "+status+" ;");
-		 		return status;
+	public int validarcertificado(int idAlumno, int idEvento) {
+		String status = null;
+		int v = 0;
+		
+		status = queryEventoAlumno.validarCertificado(idEvento, idAlumno).getStatus();
+ 		if(status == null || status.equals("")) {
+ 			v=0;
+ 		}else {
+ 			v=1;
+ 		}
+		LOG.info("Estatus evento: "+status+" ;");
+ 		return v;
 	}
 
     
