@@ -45,7 +45,7 @@ public class RequestTimeInterceptor extends HandlerInterceptorAdapter {
 			logRepository.save(new com.sigecu.entity.Log(new Date(), auth.getDetails().toString(), username, url));
 		}
 		else {
-			logRepository.save(new com.sigecu.entity.Log(new Date(), "Intento de autenticación fallido", username, url));
+			//logRepository.save(new com.sigecu.entity.Log(new Date(), "Intento de autenticación fallido", username, url));
 		}
 		
 		//LOG.info("Url to: '" + request.getRequestURL().toString() + "' in: '" + (System.currentTimeMillis() - startTime)
