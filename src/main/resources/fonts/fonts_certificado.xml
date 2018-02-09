@@ -9,6 +9,7 @@
 	
 	<fontFamily name="Dosis">
         <normal><![CDATA[fonts/dosis/Dosis-Regular.ttf]]></normal>
+        <SemiBold><![CDATA[fonts/dosis/Dosis-SemiBold.ttf]]></SemiBold>
         <pdfEmbedded><![CDATA[true]]></pdfEmbedded>
     </fontFamily>
     

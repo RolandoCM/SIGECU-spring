@@ -16,6 +16,7 @@ import com.sigecu.converter.EventosConverter;
 import com.sigecu.entity.Cursos;
 import com.sigecu.entity.Evaluaciones;
 import com.sigecu.entity.Eventos;
+import com.sigecu.exception.BusinessException;
 import com.sigecu.model.AlumnoModel;
 import com.sigecu.model.EvaluacionesModel;
 import com.sigecu.model.EventosModel;
@@ -97,18 +98,20 @@ public class EventoAlumnoImpl implements eventoAlumnoService{
 	 * @see com.sigecu.service.eventoAlumnoService#validarcertificado(int, int)
 	 */
 	@Override
-	public int validarcertificado(int idAlumno, int idEvento) {
-		String status = null;
-		int v = 0;
+	public int validarcertificado(int idAlumno, int idEvento) throws BusinessException{
+		int status = 0;
 		
-		status = queryEventoAlumno.validarCertificado(idEvento, idAlumno).getStatus();
- 		if(status == null || status.equals("")) {
- 			v=0;
- 		}else {
- 			v=1;
- 		}
-		LOG.info("Estatus evento: "+status+" ;");
- 		return v;
+		try {
+			status = Integer.parseInt(queryEventoAlumno.validarCertificado(idEvento, idAlumno).getStatus());
+			LOG.info("Estatus certificado: "+status+" ;");
+		} catch (Exception e) {
+			/*BusinessException be = new BusinessException();
+			be.setIdException(200);
+			be.setMsj("ERROR EN SERVICE : verifique la busqueda de alumnos ");
+			throw be;*/
+		}
+		return status;
+		
 	}
 
     
