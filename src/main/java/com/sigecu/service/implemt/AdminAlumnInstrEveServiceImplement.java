@@ -12,9 +12,11 @@ import org.springframework.stereotype.Service;
 import com.sigecu.converter.AlumnosConverter;
 import com.sigecu.converter.ConverterAlumnoUserConverter;
 import com.sigecu.converter.CursosConverter;
+import com.sigecu.converter.EventosConverter;
 import com.sigecu.converter.InstructorConverter;
 import com.sigecu.entity.Alumno;
 import com.sigecu.entity.Cursos;
+import com.sigecu.entity.Eventos;
 import com.sigecu.entity.Instructor;
 import com.sigecu.entity.UserRole;
 import com.sigecu.entity.Users;
@@ -24,6 +26,7 @@ import com.sigecu.model.EventosModel;
 import com.sigecu.model.InstructorModel;
 import com.sigecu.repository.AlumnoRepository;
 import com.sigecu.repository.CursosRepository;
+import com.sigecu.repository.EventosRepository;
 import com.sigecu.repository.InstructorRepository;
 import com.sigecu.repository.UserRepository;
 import com.sigecu.repository.User_Role_Repository;
@@ -67,6 +70,14 @@ public class AdminAlumnInstrEveServiceImplement implements AdminAlumnInstrEveSer
 	@Autowired
 	@Qualifier("instructorConverter")
 	private InstructorConverter insConverter;
+	
+	@Autowired
+	@Qualifier("eventosRepository")
+	private EventosRepository evento;
+	
+	@Autowired
+	@Qualifier("eventosConverter")
+	private EventosConverter eveCon;
 	
 	@Override
 	public void nuevoAlumno(AlumnoModel almmod) {
@@ -121,7 +132,9 @@ public class AdminAlumnInstrEveServiceImplement implements AdminAlumnInstrEveSer
 
 	@Override
 	public void nuevoEvento(EventosModel evemod) {
-		// TODO Auto-generated method stub
+		Eventos even= eveCon.convertEventoModelToEvento(evemod);
+		evento.saveAndFlush(even);
+		LOG.info("El evento se ha guardado correctamente ----------");
 		
 	}
 	

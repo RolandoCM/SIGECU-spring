@@ -94,9 +94,12 @@ public class AdminAlumInstEventController {
 		return "redirect:/insert/instructor?idinsetado=1";
 	}
 
-	@PostMapping("/  ")
-	public String addInstructor(@ModelAttribute(name = "eventoModel") EventosModel evenModel) {
-		return username;
+	@PostMapping("/addCurso")
+	public String addEvento(@ModelAttribute(name = "eventoModel") EventosModel evenModel) {
+		LOG.info("eventoModel");
+		adminser.nuevoEvento(evenModel);
+		LOG.info("El evento se agrego****************");
+		return "redirect:/insert/eventosInsert";
 		
 	}
 }
