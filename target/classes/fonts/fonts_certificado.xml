@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<fontFamilies>
+	
+    <fontFamily name="Great Vibes">
+        <normal><![CDATA[fonts/great-vibes/GreatVibes-Regular.ttf]]></normal>
+        <pdfEmbedded><![CDATA[true]]></pdfEmbedded>
+    </fontFamily>
+	
+	<fontFamily name="Dosis">
+        <normal><![CDATA[fonts/dosis/Dosis-Regular.ttf]]></normal>
+        <SemiBold><![CDATA[fonts/dosis/Dosis-SemiBold.ttf]]></SemiBold>
+        <pdfEmbedded><![CDATA[true]]></pdfEmbedded>
+    </fontFamily>
+    
+    <fontFamily name="Bebas Neue Regular">
+        <normal><![CDATA[fonts/BebasNeue/BebasNeue Regular.ttf]]></normal>
+        <pdfEmbedded><![CDATA[true]]></pdfEmbedded>
+    </fontFamily>	
+
+</fontFamilies>

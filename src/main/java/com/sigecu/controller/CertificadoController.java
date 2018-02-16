@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView;
 
 import com.sigecu.constant.ViewConstant;
+import com.sigecu.exception.BusinessException;
 import com.sigecu.model.AlumnoModel;
 import com.sigecu.service.CertificadoService;
 import com.sigecu.service.DefineUsuarioService;
@@ -60,23 +61,23 @@ public class CertificadoController {
 	
 	@GetMapping("/certificado")
 		public ModelAndView certificado2(
-			@RequestParam(name = "idEvento", required = false) int idEvento) {
+			@RequestParam(name = "idEvento", required = false) int idEvento) throws BusinessException {
 		
 		user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		alumnoModel =defineUsuario.buscarUsuarioAlumno(user.getUsername());
 		
-		int validar = Integer.parseInt(eventoAlumnoImpl.validarcertificado(alumnoModel.getId_alumno(), idEvento));
+		int validar = eventoAlumnoImpl.validarcertificado(alumnoModel.getId_alumno(), idEvento);
 		
 		if (validar==1) {
 			JasperReportsPdfView cerView = new JasperReportsPdfView();
-			cerView.setUrl("classpath:reports/certificadoR.jasper");
+			cerView.setUrl("classpath:reports/certificadoR.jrxml");
 			cerView.setApplicationContext(applicationContext);
 			Map<String, Object> params = new HashMap<String, Object>();
 		    params.put("datasource", alumnoHasEventoService.report(alumnoModel.getId_alumno(), idEvento));
 		    //params.put("img", this.getClass().getResource("/src/main/resources/reports/c.png"));
 			return new ModelAndView(cerView, params);
-		} else {
-			return new ModelAndView(ViewConstant.CERTIFICADO);
+		}else {
+			return new ModelAndView(ViewConstant.ERROR_404);
 		}
 		
 	}

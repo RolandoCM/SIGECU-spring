@@ -55,7 +55,7 @@ public class EventoAlumnoController {
 		
 	}
 	@GetMapping("/listarExamenAlumno")
-	public ModelAndView mostrarExamenAlumno(@RequestParam(name="idEvento", required=false)int idEvento, Model model) {
+	public ModelAndView mostrarExamenAlumno(@RequestParam(name="idEvento", required=false)int idEvento, Model model) throws BusinessException {
 		user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		alumnoModel =defineUsuario.buscarUsuarioAlumno(user.getUsername());
 		ModelAndView mav = new ModelAndView(ViewConstant.EXAMENES_ALUMNO);

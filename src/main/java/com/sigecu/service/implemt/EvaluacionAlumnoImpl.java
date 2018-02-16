@@ -17,7 +17,6 @@ import com.sigecu.entity.AsignaExamenEntity;
 import com.sigecu.entity.Evaluaciones;
 import com.sigecu.entity.Preguntas;
 import com.sigecu.entity.RespuestaALMEntity;
-import com.sigecu.entity.Respuestas;
 import com.sigecu.model.EvaluacionesModel;
 import com.sigecu.model.PreguntasModel;
 import com.sigecu.repository.AlumnoRepository;
@@ -109,8 +108,6 @@ public class EvaluacionAlumnoImpl implements EvaluacionAlumnoService {
 	@Override
 	public void guardarRespuestas(int idRespuesta, int idAsignaExamen, int idPregunta) {
 		RespuestaALMEntity respuestaALMEntity = new RespuestaALMEntity();
-		// respuestaALMEntity.setRespuestas();
-		Respuestas respuesta = respuestasRepository.findByIdRespuesta(idRespuesta);
 		AsignaExamenEntity asignaExamen = asignaExamenRepository.findByIdasignaExamen(idAsignaExamen);
 		respuestaALMEntity.setSeleccionada("1");
 		respuestaALMEntity.setIdRespuesta(idRespuesta);

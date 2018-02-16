@@ -53,6 +53,11 @@ public class ViewConstant {
 	
 	//instructor
 	public static final String INSTRUCTOR_FORM = "instructor";
+<<<<<<< HEAD
 	//Insertar Eventos
 	public static final String EVENTOS_FORM = "EventosInsert";
+=======
+	
+	public static final String ERROR_404 = "error/404";
+>>>>>>> master
 }

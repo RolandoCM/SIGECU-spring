@@ -40,7 +40,7 @@
 	<detail>
 		<band height="230" splitType="Stretch">
 			<textField>
-				<reportElement x="60" y="140" width="648" height="60" forecolor="#3F649A" uuid="6cc950e9-875f-4b74-833a-40fd0b2f945b">
+				<reportElement x="60" y="135" width="648" height="60" forecolor="#3F649A" uuid="6cc950e9-875f-4b74-833a-40fd0b2f945b">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="262952d7-3d6a-4624-833a-2845ea8856c8"/>
 				</reportElement>
 				<textElement textAlignment="Center">
